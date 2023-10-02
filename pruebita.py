@@ -41,8 +41,8 @@ def load_data(nrows):
 #    # st.subheader('Raw data')
 #    st.write(data)
 
-
-file_path = 'https://github.com/msebastianvg/pruebita/blob/726e5dc6981883405d77349748318ec156c82583/bets%20-%20gh.xlsx'  # Replace with the actual path to your Excel file
+file_path = 'bets - gh.xlsx'
+#file_path = 'https://github.com/msebastianvg/pruebita/blob/726e5dc6981883405d77349748318ec156c82583/bets%20-%20gh.xlsx'  # Replace with the actual path to your Excel file
 df = pd.read_excel(file_path)
 # st.write(df.head())
 
