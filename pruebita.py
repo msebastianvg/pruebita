@@ -42,7 +42,7 @@ def load_data(nrows):
 #    st.write(data)
 
 
-file_path = 'E:\\B\\bets.xlsx'  # Replace with the actual path to your Excel file
+file_path = 'https://github.com/msebastianvg/pruebita/blob/726e5dc6981883405d77349748318ec156c82583/bets%20-%20gh.xlsx'  # Replace with the actual path to your Excel file
 df = pd.read_excel(file_path)
 # st.write(df.head())
 
@@ -56,7 +56,7 @@ st.subheader('Win rate: ' + str("{:.1f}%".format(media * 100)))
 
 
 
-df = pd.read_excel('E:\\B\\bets.xlsx')
+# df = pd.read_excel('E:\\B\\bets.xlsx')
 
 # Convertir la columna 'date' a tipo datetime
 df['DATE'] = pd.to_datetime(df['DATE'])
@@ -76,7 +76,7 @@ st.bar_chart(ganancias_por_dia)
 
 
 # Cargar los datos desde el archivo Excel
-df = pd.read_excel('E:\\B\\bets.xlsx')
+# df = pd.read_excel('E:\\B\\bets.xlsx')
 
 # Calcular el valor mínimo y máximo de la columna 'PERCENTAGE'
 min_single = df['PERCENTAGE'].min()
@@ -125,7 +125,7 @@ st.pyplot(fig)
 
 
 
-df = pd.read_excel('E:\\B\\bets.xlsx')
+# df = pd.read_excel('E:\\B\\bets.xlsx')
 
 # Calcular el valor mínimo de la columna 'SINGLE'
 min_single = df['PERCENTAGE'].min()
@@ -185,7 +185,7 @@ st.pyplot(fig)
 
 
 
-df = pd.read_excel('E:\\B\\bets.xlsx')
+# df = pd.read_excel('E:\\B\\bets.xlsx')
 
 reference_date = pd.to_datetime("2023-01-01")  # Establece tu fecha de referencia
 df['DAYS_FROM_REFERENCE'] = (df['DATE'] - reference_date).dt.days
@@ -217,7 +217,7 @@ print(equation)
 
 
 
-df = pd.read_excel('E:\\B\\bets.xlsx')
+# df = pd.read_excel('E:\\B\\bets.xlsx')
 
 reference_date = datetime(2023, 1, 1)  # Establece tu fecha de referencia
 df['DAYS_FROM_REFERENCE'] = (df['DATE'] - reference_date).dt.days
