@@ -45,7 +45,7 @@ apuestas_perdidas = total_losses
 # Crear un gráfico de barras interactivo con Plotly Express
 fig = px.bar(
     x=["Ganadas", "Perdidas"],
-    y=[apuestas_ganadas, apuestas_perdidas],
+    y=[total_wins, total_losses],
     color=["Ganadas", "Perdidas"],
     labels={"x": "Tipo de Apuesta", "y": "Cantidad"},
     title="Apuestas Ganadas vs. Apuestas Perdidas",
