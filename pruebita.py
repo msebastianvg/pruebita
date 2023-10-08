@@ -52,8 +52,10 @@ fig = px.bar(
     color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"},
 )
 
-fig.update_yaxes(tickvals=[apuestas_ganadas, apuestas_perdidas], ticktext=[f"{porcentaje_ganadas:.1f}%", f"{porcentaje_perdidas:.1f}%"])
-
+fig.update_yaxes(
+    tickvals=[apuestas_ganadas, apuestas_perdidas],
+    ticktext=[f"{porcentaje_ganadas:.1f}%", f"{porcentaje_perdidas:.1f}%"],
+)
 
 # Mostrar el gráfico interactivo en Streamlit usando st.write
 st.write(fig)
