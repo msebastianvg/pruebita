@@ -7,7 +7,8 @@ from datetime import datetime
 # import seaborn as sns
 # from sklearn.linear_model import LinearRegression
 
-st.title('Reporte BETS - 2023 - v0')
+st.title('Reporte BETS - 2023')
+st.subheader('Comienza la fiesta damas y caballeros.')
 
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
