@@ -23,7 +23,6 @@ def load_data(nrows):
     return data
 
 
-
 apuestas_ganadas = 45
 apuestas_perdidas = 25
 
@@ -36,9 +35,8 @@ fig = px.bar(
     title="Apuestas Ganadas vs. Apuestas Perdidas",
 )
 
-# Mostrar el gráfico interactivo en Streamlit
-st.plotly_chart(fig)
-
+# Mostrar el gráfico interactivo en Streamlit usando st.write
+st.write(fig)
 
 # data_load_state = st.text('¡Cargando!')
 # data = load_data(10000)
