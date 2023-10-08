@@ -22,6 +22,24 @@ def load_data(nrows):
     data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
     return data
 
+
+
+apuestas_ganadas = 45
+apuestas_perdidas = 25
+
+# Crear un gráfico de barras interactivo con Plotly Express
+fig = px.bar(
+    x=["Ganadas", "Perdidas"],
+    y=[apuestas_ganadas, apuestas_perdidas],
+    color=["Ganadas", "Perdidas"],
+    labels={"x": "Tipo de Apuesta", "y": "Cantidad"},
+    title="Apuestas Ganadas vs. Apuestas Perdidas",
+)
+
+# Mostrar el gráfico interactivo en Streamlit
+st.plotly_chart(fig)
+
+
 # data_load_state = st.text('¡Cargando!')
 # data = load_data(10000)
 # data_load_state.text("Done! (using st.cache_data)")
