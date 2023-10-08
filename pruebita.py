@@ -54,18 +54,37 @@ st.write(fig)
 
 
 
-# df = pd.read_excel('E:\\B\\bets.xlsx')
-
-# Convertir la columna 'date' a tipo datetime
 df['DATE'] = pd.to_datetime(df['DATE'])
 
-# Filtrar las apuestas ganadas (WL=1)
+# Filtra las apuestas ganadas y perdidas
 apuestas_ganadas = df[df['WL'] == 1]
+apuestas_perdidas = df[df['WL'] == 0]
 
-# Agrupar por fecha y contar la cantidad de apuestas ganadas por día
+# Agrupa las apuestas ganadas por día y cuenta la cantidad
 ganancias_por_dia = apuestas_ganadas.groupby('DATE')['WL'].count()
 
-# Crear un gráfico de barras
+# Agrupa las apuestas perdidas por día y cuenta la cantidad
+perdidas_por_dia = apuestas_perdidas.groupby('DATE')['WL'].count()
+
+# Combina los resultados en un DataFrame único
+resultados_por_dia = pd.DataFrame({
+    'Ganadas': ganancias_por_dia,
+    'Perdidas': perdidas_por_dia
+})
+
+# Llena los valores NaN (días sin ganancias o pérdidas) con 0
+resultados_por_dia.fillna(0, inplace=True)
+
+# Mostrar el gráfico de barras
+st.write("Cantidad de Apuestas Ganadas y Perdidas por Día")
+st.bar_chart(resultados_por_dia)
+
+
+
+
+df['DATE'] = pd.to_datetime(df['DATE'])
+apuestas_ganadas = df[df['WL'] == 1]
+ganancias_por_dia = apuestas_ganadas.groupby('DATE')['WL'].count()
 st.write("Cantidad de Apuestas Ganadas por Día")
 st.bar_chart(ganancias_por_dia)
 
