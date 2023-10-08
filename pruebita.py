@@ -25,7 +25,7 @@ def load_data(nrows):
 
 
 
-st.write("Cantidad de Apuestas Ganadas por Día")
+
 file_path = 'bets - gh.xlsx'
 #file_path = 'https://github.com/msebastianvg/pruebita/blob/726e5dc6981883405d77349748318ec156c82583/bets%20-%20gh.xlsx'  # Replace with the actual path to your Excel file
 df = pd.read_excel(file_path)
@@ -43,10 +43,10 @@ apuestas_ganadas = total_wins
 apuestas_perdidas = total_losses
 
 fig = px.bar(
-    x=["Ganadas", "Perdidas"],
+    x=["Apuestas ganadas", "Apuestas perdidas"],
     y=[total_wins, total_losses],
-    color=["Ganadas", "Perdidas"],
-    labels={"x": "Tipo de Apuesta", "y": "Cantidad"},
+#    color=["Ganadas", "Perdidas"],
+#    labels={"x": "Tipo de Apuesta", "y": "Cantidad"},
 #    title="Apuestas Ganadas vs. Apuestas Perdidas",
     color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"},
 )
