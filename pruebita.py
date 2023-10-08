@@ -307,4 +307,4 @@ else:
     resultado = 0
 
 # Mostrar el resultado en un label
-st.write(f"Resultado: {resultado}")
+st.write(f"Tu monto a la fecha es de: {resultado}")
