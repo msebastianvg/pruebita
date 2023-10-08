@@ -298,16 +298,14 @@ print(f'Desviación Estándar de SINGLE: {desviacion_estandar:.2f}')
 
 
 
-st.title("Verificación de Palabra")
+st.title("Monto personal:")
+col1, col2 = st.beta_columns([1, 4])
+with col2:
+    input_text = st.text_input("Ingresa tu palabra clave:")
 
-# Campo de entrada de texto
-input_text = st.text_input("Ingresa una palabra:")
-
-# Verificar si la palabra ingresada es 'lokura'
 if input_text.lower() == 'lokura':
     resultado = 1
 else:
     resultado = 0
 
-# Mostrar el resultado en un label
-st.write(f"Resultado: {resultado}")
+with col2:
