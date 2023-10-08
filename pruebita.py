@@ -303,8 +303,7 @@ input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
 # Verificar si la palabra ingresada es 'lokura'
 if input_text.lower() == 'lokura':
     resultado = 1
+    st.write(f"Tu monto a la fecha es de: {resultado}")
 else:
     resultado = 0
 
-# Mostrar el resultado en un label
-st.write(f"Tu monto a la fecha es de: {resultado}")
