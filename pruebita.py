@@ -52,6 +52,15 @@ fig = px.bar(
     color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"},
 )
 
+fig.update_layout(
+    yaxis2=dict(
+        title="Porcentaje (%)",
+        overlaying="y",
+        side="right",
+        range=[0, 100],  # Personaliza el rango del eje secundario
+    )
+)
+
 # Mostrar el gráfico interactivo en Streamlit usando st.write
 st.write(fig)
 
