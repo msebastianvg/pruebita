@@ -23,8 +23,24 @@ def load_data(nrows):
     return data
 
 
-apuestas_ganadas = 45
-apuestas_perdidas = 25
+
+
+
+file_path = 'bets - gh.xlsx'
+#file_path = 'https://github.com/msebastianvg/pruebita/blob/726e5dc6981883405d77349748318ec156c82583/bets%20-%20gh.xlsx'  # Replace with the actual path to your Excel file
+df = pd.read_excel(file_path)
+# st.write(df.head())
+
+total_wins = (df['WL'] == 1).sum()
+total_losses = (df[df['WL'] == 0]['WL'] == 0).sum()
+#st.subheader('W: ' + str(total_wins))
+#st.subheader('L: ' + str(total_losses))
+media = total_wins/(total_losses+total_wins)
+#st.subheader('Win rate: ' + str("{:.1f}%".format(media * 100)))
+
+
+apuestas_ganadas = total_wins
+apuestas_perdidas = total_losses
 
 # Crear un gráfico de barras interactivo con Plotly Express
 fig = px.bar(
@@ -37,39 +53,6 @@ fig = px.bar(
 
 # Mostrar el gráfico interactivo en Streamlit usando st.write
 st.write(fig)
-
-# data_load_state = st.text('¡Cargando!')
-# data = load_data(10000)
-# data_load_state.text("Done! (using st.cache_data)")
-
-# st.subheader('Título del graph')
-# hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
-# st.bar_chart(hist_values)
-
-# Some number in the range 0-23
-#hour_to_filter = st.slider('hour', 0, 23, 17)
-#filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
-
-#st.subheader('Map of all pickups at %s:00' % hour_to_filter)
-#st.map(filtered_data)
-
-# st.subheader('Datos del reporte')
-# if st.checkbox('Mostrar datos utilizados'):
-#    # st.subheader('Raw data')
-#    st.write(data)
-
-file_path = 'bets - gh.xlsx'
-#file_path = 'https://github.com/msebastianvg/pruebita/blob/726e5dc6981883405d77349748318ec156c82583/bets%20-%20gh.xlsx'  # Replace with the actual path to your Excel file
-df = pd.read_excel(file_path)
-# st.write(df.head())
-
-total_wins = (df['WL'] == 1).sum()
-total_losses = (df[df['WL'] == 0]['WL'] == 0).sum()
-st.subheader('W: ' + str(total_wins))
-st.subheader('L: ' + str(total_losses))
-media = total_wins/(total_losses+total_wins)
-st.subheader('Win rate: ' + str("{:.1f}%".format(media * 100)))
-
 
 
 
