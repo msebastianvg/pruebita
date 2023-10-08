@@ -298,14 +298,13 @@ print(f'Desviación Estándar de SINGLE: {desviacion_estandar:.2f}')
 
 
 st.subheader('Monto personal')
-input_text = st.text_input("Ingresa una palabra:", key="palabra")
+input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
 
-# Inicializar el resultado como 0
-resultado = 0
-
-# Verificar si la palabra ingresada es 'lokura' en tiempo real
+# Verificar si la palabra ingresada es 'lokura'
 if input_text.lower() == 'lokura':
     resultado = 1
+else:
+    resultado = 0
 
-# Mostrar el resultado en un label en tiempo real
+# Mostrar el resultado en un label
 st.write(f"Resultado: {resultado}")
