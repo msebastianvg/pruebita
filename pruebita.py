@@ -297,7 +297,7 @@ desviacion_estandar = df['PERCENTAGE'].std()
 print(f'Desviación Estándar de SINGLE: {desviacion_estandar:.2f}')
 
 
-
+st.markdown('Monto personal')
 input_text = st.text_input("Si quieres ver tu monto personal actualizado ingresa tu palabra clave mega secreta:")
 if input_text.lower() == 'lokura':
     resultado = 1
