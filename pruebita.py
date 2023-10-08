@@ -45,10 +45,10 @@ apuestas_perdidas = total_losses
 fig = px.bar(
     x=["Apuestas ganadas", "Apuestas perdidas"],
     y=[total_wins, total_losses],
-    color=["Ganadas", "Perdidas"],
+#    color=["Ganadas", "Perdidas"],
 #    labels={"x": "Tipo de Apuesta", "y": "Cantidad"},
 #    title="Apuestas Ganadas vs. Apuestas Perdidas",
-    color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"},
+#    color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"},
 )
 st.write(fig)
 
