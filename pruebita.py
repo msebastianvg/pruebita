@@ -58,7 +58,11 @@ st.write(fig)
 df['DATE'] = pd.to_datetime(df['DATE'])
 apuestas_ganadas = df[df['WL'] == 1]
 ganancias_por_dia = apuestas_ganadas.groupby('DATE')['WL'].count()
-st.write("Cantidad de Apuestas Ganadas por Día prueba")
+st.write(
+    f"<style>.chart-single-bar rect {{ fill: green; }}</style>", 
+    unsafe_allow_html=True
+)
+st.write("Cantidad de Apuestas Ganadas por Día")
 st.bar_chart(ganancias_por_dia)
 
 
