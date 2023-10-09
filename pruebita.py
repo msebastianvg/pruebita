@@ -18,6 +18,9 @@ last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
 # Crear una nueva columna 'Color' con el valor constante 'green'
 last_pozo_actual['Color'] = 'lightgreen'
 
+# Obtener el valor mínimo de la columna 'POZOACTUAL' y restar 10000
+min_y = last_pozo_actual['POZOACTUAL'].min() - 10000
+
 # Crear un gráfico interactivo con Plotly Express y establecer un color constante
 fig = px.bar(
     last_pozo_actual, 
@@ -26,6 +29,9 @@ fig = px.bar(
     color='Color', 
     color_discrete_map={'lightgreen': 'lightgreen'}  # Establecer el color verde
 )
+
+# Configurar el rango mínimo del eje Y
+fig.update_yaxes(range=[min_y, None])
 
 # Configurar el diseño del gráfico
 fig.update_layout(
@@ -38,7 +44,6 @@ fig.update_layout(
 
 # Mostrar el gráfico interactivo en Streamlit
 st.plotly_chart(fig)
-
 
 
 
