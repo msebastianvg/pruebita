@@ -13,12 +13,11 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 file_path = 'bets - gh.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
-last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
+last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].tail(1).reset_index()
 fig = px.line(last_pozo_actual, x='DATE', y='POZOACTUAL', title='Último Valor de Pozo Actual por Fecha')
 fig.update_xaxes(title_text='Fecha')
 fig.update_yaxes(title_text='Último Pozo Actual')
 st.plotly_chart(fig)
-
 
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
