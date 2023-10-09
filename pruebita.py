@@ -15,21 +15,23 @@ df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
 
-# Crear una nueva columna 'Color' con el valor constante 'green'
-last_pozo_actual['Color'] = 'lightgreen'
+# Crear una nueva columna 'Color' basada en el valor de la columna 'WL'
+last_pozo_actual['Color'] = last_pozo_actual['WL'].apply(lambda x: 'lightgreen' if x == 1 else 'mistyrose')
 
+# Obtener el valor mínimo de la columna 'POZOACTUAL' y restar 10000
+min_y = last_pozo_actual['POZOACTUAL'].min() - 10000
 
-# Crear un gráfico interactivo con Plotly Express y establecer un color constante
+# Crear un gráfico interactivo con Plotly Express
 fig = px.bar(
-    last_pozo_actual, 
-    x='DATE', 
-    y='POZOACTUAL', 
-    color='Color', 
-    color_discrete_map={'lightgreen': 'lightgreen'}  # Establecer el color verde
+    last_pozo_actual,
+    x='DATE',
+    y='POZOACTUAL',
+    color='Color',  # Utilizar la columna 'Color' para el color de las barras
+    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},  # Mapeo de colores
 )
 
 # Configurar el rango mínimo del eje Y
-fig.update_yaxes(range=[630000, 650000])
+fig.update_yaxes(range=[630000, 660000])
 
 # Configurar el diseño del gráfico
 fig.update_layout(
