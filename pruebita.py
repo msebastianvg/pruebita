@@ -14,8 +14,11 @@ file_path = 'bets - gh.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 
+# Ordenar el DataFrame por fecha
+df = df.sort_values(by='DATE')
+
 # Encontrar el último valor de POZOACTUAL para cada fecha
-last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
+last_pozo_actual = df.drop_duplicates('DATE', keep='last')
 
 # Crear un gráfico interactivo con Plotly Express
 fig = px.line(last_pozo_actual, x='DATE', y='POZOACTUAL', title='Último Valor de Pozo Actual por Fecha')
