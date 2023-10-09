@@ -12,11 +12,20 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 
 file_path = 'bets - gh.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
+# Convertir la columna DATE a tipo datetime
 df['DATE'] = pd.to_datetime(df['DATE'])
-last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].tail(1).reset_index()
-fig = px.line(last_pozo_actual, x='DATE', y='POZOACTUAL', title='Último Valor de Pozo Actual por Fecha')
+
+# Encontrar el último valor de POZOACTUAL para cada fecha
+last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].tail(1)
+
+# Crear un gráfico interactivo con Plotly Express
+fig = px.line(last_pozo_actual, x='DATE', y=last_pozo_actual, title='Último Valor de Pozo Actual por Fecha')
+
+# Personalizar el gráfico
 fig.update_xaxes(title_text='Fecha')
 fig.update_yaxes(title_text='Último Pozo Actual')
+
+# Mostrar el gráfico en Streamlit
 st.plotly_chart(fig)
 
 DATE_COLUMN = 'date/time'
