@@ -56,7 +56,6 @@ st.write(fig)
 
 df['DATE'] = pd.to_datetime(df['DATE'])
 
-# Filtra las apuestas ganadas y perdidas
 apuestas_ganadas = df[df['WL'] == 1]
 apuestas_perdidas = df[df['WL'] == 0]
 
@@ -73,6 +72,9 @@ resultados_por_dia = pd.DataFrame({
 })
 
 # Llena los valores NaN (días sin ganancias o pérdidas) con 0
+resultados_por_dia.fillna(0, inplace=True)
+
+# Personaliza los colores de las barras
 colores = {
     'Ganadas': 'lightgreen',
     'Perdidas': 'red'
