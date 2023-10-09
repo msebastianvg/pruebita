@@ -8,7 +8,7 @@ import plotly.express as px
 # from sklearn.linear_model import LinearRegression
 
 st.title('Reporte BETS - 2023')
-st.subheader('Comienza el último periodo del año.')
+st.subheader('Comienza el último periodo del año. ')
 
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
