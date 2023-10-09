@@ -14,8 +14,20 @@ file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
+
+# Crear una nueva columna 'Color' con el valor constante 'green'
 last_pozo_actual['Color'] = 'green'
-fig = px.bar(last_pozo_actual, x='DATE', y='POZOACTUAL', color='Color')
+
+# Crear un gráfico interactivo con Plotly Express y establecer un color constante
+fig = px.bar(
+    last_pozo_actual, 
+    x='DATE', 
+    y='POZOACTUAL', 
+    color='Color', 
+    color_discrete_map={'green': 'green'}  # Establecer el color verde
+)
+
+# Configurar el diseño del gráfico
 fig.update_layout(
     title='Último Valor del Pozo Actual por Fecha',
     xaxis_title='Fecha',
@@ -23,7 +35,9 @@ fig.update_layout(
     xaxis=dict(type='category'),
     showlegend=False  # No mostrar la leyenda de colores
 )
-st.write(fig)
+
+# Mostrar el gráfico interactivo en Streamlit
+st.plotly_chart(fig)
 
 
 
