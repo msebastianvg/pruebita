@@ -74,15 +74,18 @@ resultados_por_dia = pd.DataFrame({
 # Llena los valores NaN (días sin ganancias o pérdidas) con 0
 resultados_por_dia.fillna(0, inplace=True)
 
-# Personaliza los colores de las barras
-colores = {
-    'Ganadas': 'lightgreen',
-    'Perdidas': 'red'
-}
+# Crear un gráfico de barras personalizado con Plotly
+fig = px.bar(
+    resultados_por_dia,
+    x=resultados_por_dia.index,
+    y=['Ganadas', 'Perdidas'],
+    color_discrete_map={'Ganadas': 'lightgreen', 'Perdidas': 'red'},
+    labels={'x': 'Fecha', 'y': 'Cantidad'},
+    title='Cantidad de Apuestas Ganadas y Perdidas por Día'
+)
 
-# Mostrar el gráfico de barras con colores personalizados
-st.write("Cantidad de Apuestas Ganadas y Perdidas por Día")
-st.bar_chart(resultados_por_dia, use_container_width=True, color=colores)
+# Mostrar el gráfico en Streamlit
+st.plotly_chart(fig, use_container_width=True)
 
 
 
