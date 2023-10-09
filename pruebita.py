@@ -13,38 +13,20 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
-
-# Ordenar el DataFrame por fecha
-df = df.sort_values(by='DATE')
-
-# Encontrar el último valor de POZOACTUAL para cada fecha
-last_pozo_actual = df.drop_duplicates('DATE', keep='last')
-
-# Crear un gráfico interactivo con Plotly Express
-fig = px.line(last_pozo_actual, x='DATE', y='POZOACTUAL', title='Último Valor de Pozo Actual por Fecha')
-
-# Personalizar el gráfico
-fig.update_xaxes(title_text='Fecha')
-fig.update_yaxes(title_text='Último Pozo Actual')
-
-# Mostrar el gráfico en Streamlit
-st.plotly_chart(fig)
-
-
-df['DATE'] = pd.to_datetime(df['DATE'])
-
-# Encontrar el último valor de POZOACTUAL para cada fecha
 last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
+last_pozo_actual['Color'] = 'green'
+fig = px.bar(last_pozo_actual, x='DATE', y='POZOACTUAL', color='Color')
+fig.update_layout(
+    title='Último Valor del Pozo Actual por Fecha',
+    xaxis_title='Fecha',
+    yaxis_title='Pozo Actual',
+    xaxis=dict(type='category'),
+    showlegend=False  # No mostrar la leyenda de colores
+)
+st.write(fig)
 
-# Crear un gráfico interactivo con Plotly Express
-fig = px.line(last_pozo_actual, x='DATE', y='POZOACTUAL', title='Último Valor de Pozo Actual por Fecha')
 
-# Personalizar el gráfico
-fig.update_xaxes(title_text='Fecha')
-fig.update_yaxes(title_text='Último Pozo Actual')
 
-# Mostrar el gráfico en Streamlit
-st.plotly_chart(fig)
 
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
