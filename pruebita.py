@@ -8,7 +8,7 @@ import plotly.express as px
 # from sklearn.linear_model import LinearRegression
 
 st.title('Reporte BETS - 2023')
-st.subheader('Comienza el último periodo del año. ')
+st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
@@ -24,7 +24,7 @@ def load_data(nrows):
 
 
 
-
+st.subheader('Resultados del periodo anterior (hasta el 08 de Octubre):')
 
 file_path = 'bets - gh.xlsx'
 #file_path = 'https://github.com/msebastianvg/pruebita/blob/726e5dc6981883405d77349748318ec156c82583/bets%20-%20gh.xlsx'  # Replace with the actual path to your Excel file
