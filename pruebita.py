@@ -63,6 +63,8 @@ st.bar_chart(ganancias_por_dia)
 
 
 
+
+
 df['DATE'] = pd.to_datetime(df['DATE'])
 
 # Seleccionar el último registro de cada fecha
@@ -71,21 +73,26 @@ df = df.groupby('DATE').tail(1)
 # Calcular el promedio global de 'PERCENTAGE'
 average_single_global = df['PERCENTAGE'].mean()
 
+# Asignar colores según 'WL'
+color_map = {0: 'red', 1: 'green'}
+
 # Crear un gráfico interactivo utilizando Plotly Express
-fig = px.bar(df, x='DATE', y='PERCENTAGE', color='WL', labels={'PERCENTAGE': 'GANANCIAS (%)'})
+fig = px.bar(df, x='DATE', y='PERCENTAGE', color='WL', color_discrete_map=color_map, labels={'PERCENTAGE': 'GANANCIAS (%)'})
 fig.update_traces(marker_line_width=0)  # Eliminar las líneas de borde
 fig.update_layout(
     xaxis_title='FECHA',
     yaxis_title='GANANCIAS (%)',
-    yaxis_tickformat='%P',  # Formato de porcentaje
+    yaxis_tickformat='%',
     title='GANANCIAS (%) POR FECHA',
     showlegend=True,
-    color_discrete_sequence=['red', 'green'],  # Colores personalizados para pérdidas y ganancias
 )
 fig.add_hline(y=average_single_global, line_dash='dash', line_color='blue', name='PROMEDIO DE GANANCIAS (%)')
 
 # Mostrar el gráfico interactivo en Streamlit
 st.plotly_chart(fig)
+
+
+
 
 
 
