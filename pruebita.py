@@ -54,41 +54,6 @@ st.write(fig)
 
 
 
-df['DATE'] = pd.to_datetime(df['DATE'])
-
-apuestas_ganadas = df[df['WL'] == 1]
-apuestas_perdidas = df[df['WL'] == 0]
-
-# Agrupa las apuestas ganadas por día y cuenta la cantidad
-ganancias_por_dia = apuestas_ganadas.groupby('DATE')['WL'].count()
-
-# Agrupa las apuestas perdidas por día y cuenta la cantidad
-perdidas_por_dia = apuestas_perdidas.groupby('DATE')['WL'].count()
-
-# Combina los resultados en un DataFrame único
-resultados_por_dia = pd.DataFrame({
-    'Ganadas': ganancias_por_dia,
-    'Perdidas': perdidas_por_dia
-})
-
-# Llena los valores NaN (días sin ganancias o pérdidas) con 0
-resultados_por_dia.fillna(0, inplace=True)
-
-# Crear un gráfico de barras personalizado con Plotly
-fig = px.bar(
-    resultados_por_dia,
-    x=resultados_por_dia.index,
-    y=['Ganadas', 'Perdidas'],
-    color_discrete_map={'Ganadas': 'lightgreen', 'Perdidas': 'red'},
-    labels={'x': 'Fecha', 'y': 'Cantidad'},
-    title='Cantidad de Apuestas Ganadas y Perdidas por Día'
-)
-
-# Mostrar el gráfico en Streamlit
-st.plotly_chart(fig, use_container_width=True)
-
-
-
 
 df['DATE'] = pd.to_datetime(df['DATE'])
 apuestas_ganadas = df[df['WL'] == 1]
