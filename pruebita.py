@@ -62,7 +62,6 @@ st.write("Cantidad de Apuestas Ganadas por Día")
 st.bar_chart(ganancias_por_dia)
 
 
-df = pd.read_excel('E:\\B\\bets.xlsx')
 
 # Convierte la columna 'DATE' a tipo datetime
 df['DATE'] = pd.to_datetime(df['DATE'])
