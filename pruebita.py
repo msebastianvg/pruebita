@@ -10,7 +10,7 @@ import plotly.express as px
 st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
-file_path = 'bets - gh.xlsx'
+file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 
