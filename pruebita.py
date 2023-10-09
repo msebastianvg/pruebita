@@ -62,17 +62,9 @@ st.write("Cantidad de Apuestas Ganadas por Día")
 st.bar_chart(ganancias_por_dia)
 
 
+df = pd.read_excel('E:\\B\\bets.xlsx')
 
-
-
-# Cargar los datos desde el archivo Excel
-# df = pd.read_excel('E:\\B\\bets.xlsx')
-
-# Calcular el valor mínimo y máximo de la columna 'PERCENTAGE'
-min_single = df['PERCENTAGE'].min()
-max_single = df['PERCENTAGE'].max() + 0.01
-
-# Convertir la columna 'date' a tipo datetime
+# Convierte la columna 'DATE' a tipo datetime
 df['DATE'] = pd.to_datetime(df['DATE'])
 
 # Seleccionar el último registro de cada fecha
@@ -81,36 +73,41 @@ df = df.groupby('DATE').tail(1)
 # Calcular el promedio global de 'PERCENTAGE'
 average_single_global = df['PERCENTAGE'].mean()
 
-# Crear un gráfico de barras que muestra la variación de 'PERCENTAGE' con respecto a las fechas
+# Crear un gráfico interactivo utilizando Plotly Express
+fig = px.bar(df, x='DATE', y='PERCENTAGE', color='WL', labels={'PERCENTAGE': 'GANANCIAS (%)'})
+fig.update_traces(marker_line_width=0)  # Eliminar las líneas de borde
+fig.update_layout(
+    xaxis_title='FECHA',
+    yaxis_title='GANANCIAS (%)',
+    yaxis_tickformat='%',
+    title='GANANCIAS (%) POR FECHA',
+    showlegend=True,
+)
+fig.add_hline(y=average_single_global, line_dash='dash', line_color='blue', name='PROMEDIO DE GANANCIAS (%)')
+
+# Mostrar el gráfico interactivo en Streamlit
+st.plotly_chart(fig)
+
+
+
+df = pd.read_excel('E:\\B\\bets.xlsx')
+min_single = df['PERCENTAGE'].min()
+max_single = df['PERCENTAGE'].max() + 0.01
+df['DATE'] = pd.to_datetime(df['DATE'])
+df = df.groupby('DATE').tail(1)
+average_single_global = df['PERCENTAGE'].mean()
 st.write("Porcentaje de ganancias")
-
 fig, ax = plt.subplots(figsize=(10, 6))
-
-# Asignar colores según 'WL' en el último registro de cada fecha
 colors = ['lightgreen' if wl == 1 else 'orange' for wl in df['WL']]
-
 ax.bar(df['DATE'], df['PERCENTAGE'], color=colors)
-
-# Personalizar el gráfico
 ax.set_xlabel('FECHA')
 ax.set_ylabel('GANANCIAS (%)')
-
-# Establecer el formato de los valores en el eje Y como porcentajes con un decimal
 ax.yaxis.set_major_formatter('{:.0%}'.format)
-
 ax.set_title('GANANCIAS (%) POR FECHA')
-ax.set_ylim([min_single, max_single])  # Establecer el límite superior del eje Y
-
-# Rotar las etiquetas del eje x para una mejor legibilidad
+ax.set_ylim([min_single, max_single])
 plt.xticks(rotation=45)
-
-# Agregar la línea que muestra el promedio global de 'PERCENTAGE'
 ax.axhline(average_single_global, color='blue', linestyle='--', label='PROMEDIO DE GANANCIAS (%)')
-
-# Mostrar la leyenda
 ax.legend()
-
-# Mostrar el gráfico en Streamlit
 st.pyplot(fig)
 
 
