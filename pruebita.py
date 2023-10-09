@@ -24,7 +24,7 @@ fig = px.bar(
     x='DATE', 
     y='POZOACTUAL', 
     color='Color', 
-    color_discrete_map={'green': 'green'}  # Establecer el color verde
+    color_discrete_map={'lightgreen': 'lightgreen'}  # Establecer el color verde
 )
 
 # Configurar el diseño del gráfico
