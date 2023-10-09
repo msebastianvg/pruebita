@@ -30,6 +30,22 @@ fig.update_yaxes(title_text='Último Pozo Actual')
 # Mostrar el gráfico en Streamlit
 st.plotly_chart(fig)
 
+
+df['DATE'] = pd.to_datetime(df['DATE'])
+
+# Encontrar el último valor de POZOACTUAL para cada fecha
+last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
+
+# Crear un gráfico interactivo con Plotly Express
+fig = px.line(last_pozo_actual, x='DATE', y='POZOACTUAL', title='Último Valor de Pozo Actual por Fecha')
+
+# Personalizar el gráfico
+fig.update_xaxes(title_text='Fecha')
+fig.update_yaxes(title_text='Último Pozo Actual')
+
+# Mostrar el gráfico en Streamlit
+st.plotly_chart(fig)
+
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
             'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
