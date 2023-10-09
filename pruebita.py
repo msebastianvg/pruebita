@@ -73,11 +73,14 @@ resultados_por_dia = pd.DataFrame({
 })
 
 # Llena los valores NaN (días sin ganancias o pérdidas) con 0
-resultados_por_dia.fillna(0, inplace=True)
+colores = {
+    'Ganadas': 'lightgreen',
+    'Perdidas': 'red'
+}
 
-# Mostrar el gráfico de barras
+# Mostrar el gráfico de barras con colores personalizados
 st.write("Cantidad de Apuestas Ganadas y Perdidas por Día")
-st.bar_chart(resultados_por_dia)
+st.bar_chart(resultados_por_dia, use_container_width=True, color=colores)
 
 
 
