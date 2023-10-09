@@ -89,7 +89,6 @@ st.plotly_chart(fig)
 
 
 
-df = pd.read_excel('E:\\B\\bets.xlsx')
 min_single = df['PERCENTAGE'].min()
 max_single = df['PERCENTAGE'].max() + 0.01
 df['DATE'] = pd.to_datetime(df['DATE'])
