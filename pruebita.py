@@ -16,7 +16,7 @@ df['DATE'] = pd.to_datetime(df['DATE'])
 last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
 
 # Crear una nueva columna 'Color' con el valor constante 'green'
-last_pozo_actual['Color'] = 'green'
+last_pozo_actual['Color'] = 'lightgreen'
 
 # Crear un gráfico interactivo con Plotly Express y establecer un color constante
 fig = px.bar(
