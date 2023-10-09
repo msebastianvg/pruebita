@@ -10,6 +10,16 @@ import plotly.express as px
 st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
+file_path = 'bets - gh.xlsx'
+df = pd.read_excel(file_path, sheet_name='bets')
+df['DATE'] = pd.to_datetime(df['DATE'])
+last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
+fig = px.line(last_pozo_actual, x='DATE', y='POZOACTUAL', title='Último Valor de Pozo Actual por Fecha')
+fig.update_xaxes(title_text='Fecha')
+fig.update_yaxes(title_text='Último Pozo Actual')
+st.plotly_chart(fig)
+
+
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
             'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
