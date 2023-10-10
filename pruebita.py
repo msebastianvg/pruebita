@@ -33,7 +33,7 @@ fig = px.bar(
 )
 
 # Configurar el rango mínimo del eje Y
-fig.update_yaxes(range=[min_y, None])
+fig.update_yaxes(range=[630000, 660000])
 
 # Configurar el diseño del gráfico
 fig.update_layout(
