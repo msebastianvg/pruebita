@@ -14,9 +14,11 @@ file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 
-last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
+# Ordenar el DataFrame por la columna 'DATE'
+df = df.sort_values(by='DATE')
 
-last_pozo_actual = last_pozo_actual.sort_values(by='DATE')
+# Seleccionar el último registro de cada fecha
+last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
 
 # Crear una nueva columna 'Color' basada en el valor de la columna 'WL' del DataFrame 'last_pozo_actual'
 last_pozo_actual['Color'] = 'lightgreen'  # Inicialmente, establecer todos los valores en 'lightgreen'
