@@ -31,9 +31,9 @@ fig.update_yaxes(
 )
 #fig.update_yaxes(range=[0, 0.05])
 fig.update_layout(
-    title='Último Valor del Pozo Actual por Fecha',
+  #  title='Último Valor del Pozo Actual por Fecha',
     xaxis_title='Fecha',
-    yaxis_title='Pozo Actual',
+    yaxis_title='Porcentaje de ganancias (%)',
   #  xaxis=dict(type='category'),
     showlegend=False
 )
