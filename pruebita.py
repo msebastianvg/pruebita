@@ -41,7 +41,7 @@ fig.update_layout(
     title='Último Valor del Pozo Actual por Fecha',
     xaxis_title='Fecha',
     yaxis_title='Pozo Actual',
-    xaxis=dict(type='category'),
+  #  xaxis=dict(type='category'),
     showlegend=False  # No mostrar la leyenda de colores
 )
 
