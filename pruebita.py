@@ -24,7 +24,7 @@ fig = px.bar(
     color='Color', 
     color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'}, 
 )
-fig.update_yaxes(range=[1, 1.1])
+fig.update_yaxes(range=[0, 0.05])
 fig.update_layout(
     title='Último Valor del Pozo Actual por Fecha',
     xaxis_title='Fecha',
