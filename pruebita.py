@@ -13,10 +13,12 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
+
+# Seleccionar el último registro de cada fecha
 last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
 
-# Crear una nueva columna 'Color' basada en el valor de la columna 'WL'
-last_pozo_actual['Color'] = last_pozo_actual['WL'].apply(lambda x: 'lightgreen' if x == 1 else 'mistyrose')
+# Crear una nueva columna 'Color' basada en el valor de la columna 'WL' del DataFrame original 'df'
+last_pozo_actual['Color'] = last_pozo_actual['DATE'].apply(lambda date: 'lightgreen' if df[(df['DATE'] == date) & (df['WL'] == 1)].any()['WL'] else 'mistyrose')
 
 # Obtener el valor mínimo de la columna 'POZOACTUAL' y restar 10000
 min_y = last_pozo_actual['POZOACTUAL'].min() - 10000
@@ -31,7 +33,7 @@ fig = px.bar(
 )
 
 # Configurar el rango mínimo del eje Y
-fig.update_yaxes(range=[630000, 660000])
+fig.update_yaxes(range=[min_y, None])
 
 # Configurar el diseño del gráfico
 fig.update_layout(
