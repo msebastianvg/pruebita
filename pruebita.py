@@ -40,6 +40,26 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 
+total_wins = (df['WL'] == 1).sum()
+total_losses = (df[df['WL'] == 0]['WL'] == 0).sum()
+media = total_wins/(total_losses+total_wins)
+apuestas_ganadas = total_wins
+apuestas_perdidas = total_losses
+
+fig = px.bar(
+    x=["Apuestas ganadas", "Apuestas perdidas"],
+    y=[total_wins, total_losses],
+    color=["Ganadas", "Perdidas"],
+    labels={"x": "", "y": ""},
+#    title="Apuestas Ganadas vs. Apuestas Perdidas",
+    color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"},
+)
+st.write(fig)
+
+
+
+
+
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
             'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
