@@ -13,39 +13,25 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
-
-# Ordenar el DataFrame por la columna 'DATE'
 df = df.sort_values(by='DATE')
-
-# Seleccionar el último registro de cada fecha
-last_pozo_actual = df.groupby('DATE')['POZOACTUAL'].last().reset_index()
-
-# Crear una nueva columna 'Color' basada en el valor de la columna 'WL' del DataFrame 'last_pozo_actual'
-last_pozo_actual['Color'] = 'lightgreen'  # Inicialmente, establecer todos los valores en 'lightgreen'
+last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
+last_pozo_actual['Color'] = 'lightgreen' 
 last_pozo_actual.loc[last_pozo_actual['DATE'].isin(df[(df['WL'] == 0)]['DATE']), 'Color'] = 'mistyrose'
-
-# Crear un gráfico interactivo con Plotly Express
 fig = px.bar(
     last_pozo_actual,
     x='DATE',
-    y='POZOACTUAL',
-    color='Color',  # Utilizar la columna 'Color' para el color de las barras
-    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},  # Mapeo de colores
+    y='PERCENTAGE',
+    color='Color', 
+    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'}, 
 )
-
-# Configurar el rango mínimo del eje Y
-fig.update_yaxes(range=[635000, 660000])
-
-# Configurar el diseño del gráfico
+fig.update_yaxes(range=[1, 1.1])
 fig.update_layout(
     title='Último Valor del Pozo Actual por Fecha',
     xaxis_title='Fecha',
     yaxis_title='Pozo Actual',
   #  xaxis=dict(type='category'),
-    showlegend=False  # No mostrar la leyenda de colores
+    showlegend=False
 )
-
-# Mostrar el gráfico interactivo en Streamlit
 st.plotly_chart(fig)
 
 
