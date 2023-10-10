@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 from datetime import datetime
 import plotly.express as px
 # import seaborn as sns
@@ -24,7 +25,11 @@ fig = px.bar(
     color='Color', 
     color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'}, 
 )
-fig.update_yaxes(range=[0, 0.05])
+fig.update_yaxes(
+    ticksuffix="%",  # Agregar el símbolo de porcentaje a las etiquetas del eje Y
+    range=[0, 5],    # Ajustar el rango del eje Y según tus necesidades
+)
+#fig.update_yaxes(range=[0, 0.05])
 fig.update_layout(
     title='Último Valor del Pozo Actual por Fecha',
     xaxis_title='Fecha',
