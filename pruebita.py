@@ -58,10 +58,9 @@ last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
 last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
 
 fig = px.bar(
-    color='WL',
     last_pozo_actual,
     x='DATE',
-    y='PERCENTAGE',
+    y='PERCENTAGE'
 )
 
 fig.update_yaxes(
