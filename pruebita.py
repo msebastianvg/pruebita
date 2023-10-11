@@ -97,7 +97,8 @@ fig.add_trace(go.Bar(
 
 # Here we modify the tickangle of the xaxis, resulting in rotated labels.
 fig.update_layout(barmode='group', xaxis_tickangle=-45)
-fig.show()
+#fig.show()
+st.write(fig)
 
 
 total_wins = (df['WL'] == 1).sum()
