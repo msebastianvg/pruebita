@@ -13,6 +13,7 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 
 
 
+# Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 sheet_name = 'bets'
 df = pd.read_excel(file_path, sheet_name=sheet_name)
@@ -21,9 +22,15 @@ df = pd.read_excel(file_path, sheet_name=sheet_name)
 grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
 grouped.reset_index(inplace=True)
 
-# Asignar colores directamente a los datos
-grouped['Ganadas_Color'] = 'lightgreen'
-grouped['Perdidas_Color'] = 'mistyrose'
+# Definir una función para asignar colores
+def assign_color(row):
+    if row['WL'] == 1:
+        return 'lightgreen'
+    else:
+        return 'mistyrose'
+
+# Aplicar la función para asignar colores
+grouped['Color'] = grouped.apply(assign_color, axis=1)
 
 # Crear un gráfico interactivo en Streamlit con barras separadas y colores personalizados
 fig = px.bar(
@@ -32,8 +39,7 @@ fig = px.bar(
     y=[0, 1],
     labels={'0': 'Perdidas', '1': 'Ganadas'},
     barmode='group',
-    color_discrete_map={'0': 'Perdidas_Color', '1': 'Ganadas_Color'},
-    category_orders={'CATEGORY': sorted(grouped['CATEGORY'].unique())}
+    color='Color'
 )
 fig.update_layout(
     xaxis_title='Categoría',
@@ -42,6 +48,7 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
+
 
 
 
