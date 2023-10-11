@@ -54,7 +54,7 @@ df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
 # Seleccionar solo el último valor de "PERCENTAGE" de cada día
 last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
 
-# Crear una función para asignar colores
+# Función para asignar colores
 def assign_color(row):
     return 'mistyrose' if row['ID'] == row['Max_ID'] else 'lightgreen'
 
