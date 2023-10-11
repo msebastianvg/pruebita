@@ -92,14 +92,14 @@ last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
 # Formatear las fechas en formato "DD-MM-YYYY"
 last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
 
-# Crear una función para asignar colores en función de 'WL'
+# Crear una función para asignar colores en función de 'WL' y 'ID'
 def assign_color(row):
     if row['ID'] == row['Max_ID'] and row['WL'] == 1:
         return 'lightgreen'
     else:
         return 'lightyellow'
 
-# Aplicar la función para asignar colores
+# Aplicar la función para asignar colores durante la creación del DataFrame
 last_pozo_actual['Color'] = last_pozo_actual.apply(assign_color, axis=1)
 
 fig = px.bar(
