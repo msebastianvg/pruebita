@@ -51,12 +51,14 @@ df = df.sort_values(by='DATE')
 # Encontrar el valor máximo de 'ID' para cada fecha
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
 
-# Crear una columna 'Color' para los valores en función de 'Max_ID'
-df['Color'] = 'lightgreen'
-df.loc[df['ID'] == df['Max_ID'], 'Color'] = 'mistyrose'
-
 # Seleccionar solo el último valor de "PERCENTAGE" de cada día
 last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
+
+# Crear una función para asignar colores
+def assign_color(row):
+    return 'mistyrose' if row['ID'] == row['Max_ID'] else 'lightgreen'
+
+last_pozo_actual['Color'] = last_pozo_actual.apply(assign_color, axis=1)
 
 fig = px.bar(
     last_pozo_actual,
