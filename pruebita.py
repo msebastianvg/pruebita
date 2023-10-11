@@ -88,13 +88,13 @@ months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
 fig = go.Figure()
 fig.add_trace(go.Bar(
     x=df_mes,
-    y=[20, 14, 25, 16, 18, 22, 19, 15, 12, 16, 14, 17],
+    y=[20, 14, 25],
     name='Primary Product',
     marker_color='indianred'
 ))
 fig.add_trace(go.Bar(
     x=df_mes,
-    y=[19, 14, 22, 14, 16, 19, 15, 14, 10, 12, 12, 16],
+    y=[19, 14, 22],
     name='Secondary Product',
     marker_color='lightsalmon'
 ))
