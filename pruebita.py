@@ -56,7 +56,7 @@ last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
 
 # Asignar el color en función del valor de 'ID' máximo
 last_pozo_actual['Color'] = 'lightgreen'
-last_pozo_actual.loc[last_pozo_actual['ID'] == last_pozo_actual['ID'].max(), 'Color'] = 'mistyrose'
+last_pozo_actual.loc[last_pozo_actual['ID'] == last_pozo_actual.groupby('DATE')['ID'].transform('max'), 'Color'] = 'mistyrose'
 
 fig = px.bar(
     last_pozo_actual,
