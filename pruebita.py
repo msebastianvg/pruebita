@@ -61,7 +61,7 @@ fig = px.bar(
     color='WL',
     last_pozo_actual,
     x='DATE',
-    y='PERCENTAGE'
+    y='PERCENTAGE',
 )
 
 fig.update_yaxes(
