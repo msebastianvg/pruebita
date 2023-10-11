@@ -81,34 +81,6 @@ st.plotly_chart(fig)
 
 
 
-df['DATE'] = pd.to_datetime(df['DATE']).unique().tolist()
-months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-fig = go.Figure()
-fig.add_trace(go.Bar(
-    x=df['DATE'],
-    y=[20, 14, 25],
-    name='Primary Product',
-    marker_color='indianred'
-))
-fig.add_trace(go.Bar(
-    x=df['DATE'],
-    y=[19, 14, 22],
-    name='Secondary Product',
-    marker_color='lightsalmon'
-))
-
-# Here we modify the tickangle of the xaxis, resulting in rotated labels.
-fig.update_layout(barmode='group', xaxis_tickangle=-45)
-#fig.show()
-st.write(fig)
-
-
-
-
-
-
 
 total_wins = (df['WL'] == 1).sum()
 total_losses = (df[df['WL'] == 0]['WL'] == 0).sum()
