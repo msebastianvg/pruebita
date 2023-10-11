@@ -99,11 +99,15 @@ last_wl = df[df['ID'] == df['Max_ID']]
 # Asignar los colores en función de 'WL' y 'ID'
 colors = []
 for date in last_pozo_actual['DATE']:
-    last_wl_value = last_wl[last_wl['DATE'] == date]['WL'].values[0]
-    if last_wl_value == 1:
-        colors.append('lightgreen')
+    last_wl_value = last_wl[last_wl['DATE'] == date]['WL']
+    if not last_wl_value.empty:
+        last_wl_value = last_wl_value.values[0]
+        if last_wl_value == 1:
+            colors.append('lightgreen')
+        else:
+            colors.append('lightyellow')
     else:
-        colors.append('lightyellow')
+        colors.append('lightyellow')  # Color predeterminado si no hay coincidencia
 
 last_pozo_actual['Color'] = colors
 
@@ -127,7 +131,6 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
-
 
 
 
