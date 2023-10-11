@@ -60,64 +60,6 @@ st.plotly_chart(fig)
 
 
 
-file_path = 'bets-2023-2.xlsx'
-df = pd.read_excel(file_path, sheet_name='bets')
-df['DATE'] = pd.to_datetime(df['DATE'])
-df = df.sort_values(by='DATE')
-last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
-last_pozo_actual['Color'] = 'lightgreen' 
-last_pozo_actual.loc[last_pozo_actual['DATE'].isin(df[(df['WL'] == 0)]['DATE']), 'Color'] = 'mistyrose'
-last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
-fig = px.bar(
-    last_pozo_actual,
-    x='DATE',
-    y='PERCENTAGE',
-    color='Color', 
-    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'}, 
-)
-fig.update_yaxes(
-    ticksuffix="%",  # Agregar el símbolo de porcentaje a las etiquetas del eje Y
-    range=[0, 5],    # Ajustar el rango del eje Y según tus necesidades
-)
-fig.update_layout(
-    xaxis_title='Fecha',
-    yaxis_title='Porcentaje de ganancias (%)',
-    # xaxis=dict(type='category'),
-    showlegend=False
-)
-st.plotly_chart(fig)
-
-
-
-file_path = 'bets-2023-2.xlsx'
-df = pd.read_excel(file_path, sheet_name='bets')
-df['DATE'] = pd.to_datetime(df['DATE'])
-df = df.sort_values(by='DATE')
-df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
-last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
-last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
-
-fig = px.bar(
-    last_pozo_actual,
-    x='DATE',
-    y='PERCENTAGE'
-)
-fig.update_yaxes(
-    ticksuffix="%",
-    range=[0, 5]
-)
-fig.update_layout(
-    xaxis_title='Periodo',
-    yaxis_title='Porcentaje de ganancias (%)',
-    showlegend=False
-)
-st.plotly_chart(fig)
-
-
-
-
-
-
 total_wins = (df['WL'] == 1).sum()
 total_losses = (df[df['WL'] == 0]['WL'] == 0).sum()
 media = total_wins/(total_losses+total_wins)
