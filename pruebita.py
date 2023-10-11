@@ -43,18 +43,17 @@ st.plotly_chart(fig)
 
 
 
-
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 df = df.sort_values(by='DATE')
 
-# Marcar el último registro de cada día según el valor de "WL"
-df['Last_WL'] = df.groupby('DATE')['WL'].transform('last')
+# Encontrar el valor máximo de 'ID' para cada fecha
+df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
 
-# Crear una columna 'Color' para los valores en función de 'Last_WL'
+# Crear una columna 'Color' para los valores en función de 'Max_ID'
 df['Color'] = 'lightgreen'
-df.loc[df['Last_WL'] == 0, 'Color'] = 'mistyrose'
+df.loc[df['ID'] == df['Max_ID'], 'Color'] = 'mistyrose'
 
 # Seleccionar solo el último valor de "PERCENTAGE" de cada día
 last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
