@@ -78,7 +78,6 @@ st.plotly_chart(fig)
 
 
 
-
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
@@ -93,9 +92,15 @@ last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
 # Formatear las fechas en formato "DD-MM-YYYY"
 last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
 
-# Agregar una columna 'Color' para asignar colores en función de 'WL'
-last_pozo_actual['Color'] = 'lightyellow'
-last_pozo_actual.loc[last_pozo_actual['ID'] == last_pozo_actual['ID'].max(), 'Color'] = 'lightgreen'
+# Crear una función para asignar colores en función de 'WL'
+def assign_color(row):
+    if row['ID'] == row['Max_ID'] and row['WL'] == 1:
+        return 'lightgreen'
+    else:
+        return 'lightyellow'
+
+# Aplicar la función para asignar colores
+last_pozo_actual['Color'] = last_pozo_actual.apply(assign_color, axis=1)
 
 fig = px.bar(
     last_pozo_actual,
@@ -117,7 +122,6 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
-
 
 
 
