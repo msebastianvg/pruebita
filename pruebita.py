@@ -38,7 +38,7 @@ fig = px.bar(
     x='CATEGORY',
     y=[0, 1],
     labels={'0': 'Perdidas', '1': 'Ganadas'},
-    barmode='group',
+    barmode='relative',  # Utilizar barmode='relative' para barras separadas
     color='Color'
 )
 fig.update_layout(
