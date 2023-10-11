@@ -32,6 +32,10 @@ fig.update_yaxes(
     ticksuffix="%",  # Agregar el símbolo de porcentaje a las etiquetas del eje Y
     range=[0, 5],    # Ajustar el rango del eje Y según tus necesidades
 )
+fig.update_layout(
+    width=0.8,  # Ancho del 80% del contenedor
+    height=0.6,  # Altura del 60% del contenedor
+)
 #fig.update_yaxes(range=[0, 0.05])
 fig.update_layout(
   #  title='Último Valor del Pozo Actual por Fecha',
