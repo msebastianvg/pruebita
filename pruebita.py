@@ -38,7 +38,6 @@ fig.update_layout(
     xaxis_title='Fecha',
     yaxis_title='Porcentaje de ganancias (%)',
   #  xaxis=dict(type='category'),
-    width=0.8,
     showlegend=False
 )
 st.plotly_chart(fig)
