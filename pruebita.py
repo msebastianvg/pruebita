@@ -43,44 +43,6 @@ st.plotly_chart(fig)
 
 
 
-file_path = 'bets-2023-2.xlsx'
-df = pd.read_excel(file_path, sheet_name='bets')
-df['DATE'] = pd.to_datetime(df['DATE'])
-df = df.sort_values(by='DATE')
-
-# Encontrar el valor máximo de 'ID' para cada fecha
-df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
-
-# Seleccionar solo el último valor de "PERCENTAGE" de cada día
-last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
-
-# Asignar el color en función del valor de 'ID' máximo
-last_pozo_actual['Color'] = 'lightgreen'
-last_pozo_actual.loc[last_pozo_actual['ID'] == last_pozo_actual.groupby('DATE')['ID'].transform('max'), 'Color'] = 'mistyrose'
-
-fig = px.bar(
-    last_pozo_actual,
-    x='DATE',
-    y='PERCENTAGE',
-    color='Color',
-    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
-)
-
-fig.update_yaxes(
-    ticksuffix="%",
-    range=[0, 5]
-)
-
-fig.update_layout(
-    xaxis_title='Fecha',
-    yaxis_title='Porcentaje de ganancias (%)',
-    showlegend=False
-)
-
-st.plotly_chart(fig)
-
-
-
 total_wins = (df['WL'] == 1).sum()
 total_losses = (df[df['WL'] == 0]['WL'] == 0).sum()
 media = total_wins/(total_losses+total_wins)
