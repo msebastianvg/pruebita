@@ -34,6 +34,7 @@ fig = px.bar(
     y=['Apuestas perdidas', 'Apuestas ganadas'],
     barmode='group',
     title='Cantidad de Registros por Categoría y WL',
+    color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"},
 )
 fig.update_layout(
     xaxis_title='Categoría',
