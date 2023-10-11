@@ -18,11 +18,20 @@ file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 df = df.sort_values(by='DATE')
+
+# Encontrar el valor máximo de 'ID' para cada fecha
+df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
+
+# Crear un DataFrame con el último valor de "PERCENTAGE" de cada día
 last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
 
-# Aplicar la lógica de colores en el DataFrame
-last_pozo_actual['Color'] = 'lightgreen'
-last_pozo_actual.loc[last_pozo_actual['DATE'].isin(df[df['WL'] == 0]['DATE']), 'Color'] = 'mistyrose'
+# Aplicar la lógica de colores en función de 'WL'
+last_wl = df[df['ID'] == df['Max_ID']]
+last_wl['Color'] = 'lightgreen'
+last_wl.loc[last_wl['WL'] == 0, 'Color'] = 'mistyrose'
+
+# Combinar los DataFrames 'last_pozo_actual' y 'last_wl' para tener los colores
+last_pozo_actual = last_pozo_actual.merge(last_wl[['DATE', 'Color']], on='DATE', how='left')
 
 fig = px.bar(
     last_pozo_actual,
