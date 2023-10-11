@@ -77,6 +77,8 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 
+
+
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
@@ -85,16 +87,20 @@ df = df.sort_values(by='DATE')
 # Encontrar el valor máximo de 'ID' para cada fecha
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
 
-# Seleccionar solo el último valor de "PERCENTAGE" de cada día
+# Crear un DataFrame con el último valor de "PERCENTAGE" de cada día
 last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
 
 # Formatear las fechas en formato "DD-MM-YYYY"
 last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
 
-# Crear una lista de colores basada en 'WL' y 'ID'
+# Crear un DataFrame para los valores de 'WL' del último 'ID' para cada fecha
+last_wl = df[df['ID'] == df['Max_ID']]
+
+# Asignar los colores en función de 'WL' y 'ID'
 colors = []
-for _, row in last_pozo_actual.iterrows():
-    if row['ID'] == row['Max_ID'] and row['WL'] == 1:
+for date in last_pozo_actual['DATE']:
+    last_wl_value = last_wl[last_wl['DATE'] == date]['WL'].values[0]
+    if last_wl_value == 1:
         colors.append('lightgreen')
     else:
         colors.append('lightyellow')
@@ -121,6 +127,7 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
+
 
 
 
