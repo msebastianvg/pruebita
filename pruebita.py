@@ -49,16 +49,15 @@ df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 df = df.sort_values(by='DATE')
 
-# Obtener la última fecha en la que "WL" es igual a 0
-last_wl_zero = df[df['WL'] == 0].groupby('DATE')['PERCENTAGE'].last().reset_index()
-last_wl_zero['Color'] = 'mistyrose'
+# Marcar el último registro de cada día según el valor de "WL"
+df['Last_WL'] = df.groupby('DATE')['WL'].transform('last')
 
-# Marcar las fechas en las que "WL" no sea igual a 0 como lightgreen
+# Crear una columna 'Color' para los valores en función de 'Last_WL'
+df['Color'] = 'lightgreen'
+df.loc[df['Last_WL'] == 0, 'Color'] = 'mistyrose'
+
+# Seleccionar solo el último valor de "PERCENTAGE" de cada día
 last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
-last_pozo_actual['Color'] = 'lightgreen'
-
-# Actualizar las fechas que corresponden a "WL == 0" con el color correcto
-last_pozo_actual.loc[last_pozo_actual['DATE'].isin(last_wl_zero['DATE']), 'Color'] = 'mistyrose'
 
 fig = px.bar(
     last_pozo_actual,
