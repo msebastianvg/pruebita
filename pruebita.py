@@ -55,7 +55,7 @@ fig = px.bar(
     color=["Ganadas", "Perdidas"],
     labels={"x": "", "y": ""},
 #    title="Apuestas Ganadas vs. Apuestas Perdidas",
-    color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"},
+    color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"}
 )
 st.write(fig)
 
