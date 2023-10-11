@@ -17,19 +17,29 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 file_path = 'bets-2023-2.xlsx'
 sheet_name = 'bets'
 df = pd.read_excel(file_path, sheet_name=sheet_name)
+
+
+# Agrupar por 'CATEGORY' y 'WL' y contar la cantidad de registros
+grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
+
+# Reiniciar el índice para tener 'CATEGORY' como una columna
+grouped = grouped.reset_index()
+
+# Crear un gráfico interactivo en Streamlit
 fig = px.bar(
-    df,
+    grouped,
     x='CATEGORY',
-    color='WL',
+    y=[0, 1],  # La suma de registros con WL=0 y WL=1
+    labels={'0': 'WL=0', '1': 'WL=1'},
     barmode='group',
-    labels={'WL': 'WL'},
     title='Cantidad de Registros por Categoría y WL',
 )
 fig.update_layout(
     xaxis_title='Categoría',
-    yaxis_title='Cantidad de Registros',
+    yaxis_title='Suma de Registros',
     showlegend=True,
 )
+
 
 st.plotly_chart(fig)
 
