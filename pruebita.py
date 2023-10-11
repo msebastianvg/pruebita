@@ -93,6 +93,9 @@ last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
 # Formatear las fechas en formato "DD-MM-YYYY"
 last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
 
+# Ordenar el DataFrame por la columna 'DATE'
+last_pozo_actual = last_pozo_actual.sort_values(by='DATE')
+
 # Crear un DataFrame para los valores de 'WL' del último 'ID' para cada fecha
 last_wl = df[df['ID'] == df['Max_ID']]
 
@@ -131,7 +134,6 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
-
 
 
 total_wins = (df['WL'] == 1).sum()
