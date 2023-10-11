@@ -78,32 +78,6 @@ st.plotly_chart(fig)
 
 
 
-file_path = 'bets-2023-2.xlsx'
-df = pd.read_excel(file_path, sheet_name='bets')
-df['DATE'] = pd.to_datetime(df['DATE'])
-df = df.groupby('DATE').tail(1)
-
-# Calcular el promedio global de 'PERCENTAGE'
-average_single_global = df['PERCENTAGE'].mean()
-
-# Asignar colores según 'WL'
-df['Color'] = df['WL'].map({0: 'yellow', 1: 'green'})
-
-# Crear un gráfico interactivo utilizando Plotly Express
-fig = px.bar(df, x='DATE', y='PERCENTAGE', color='Color', labels={'PERCENTAGE': 'GANANCIAS (%)'})
-fig.update_traces(marker_line_width=0)  # Eliminar las líneas de borde
-fig.update_layout(
-    xaxis_title='FECHA',
-    yaxis_title='GANANCIAS (%)',
-    yaxis_tickformat='%',
-    title='GANANCIAS (%) POR FECHA',
-    showlegend=True,
-)
-fig.add_hline(y=average_single_global, line_dash='dash', line_color='blue', name='PROMEDIO DE GANANCIAS (%)')
-
-# Mostrar el gráfico interactivo en Streamlit
-st.plotly_chart(fig)
-
 
 
 total_wins = (df['WL'] == 1).sum()
