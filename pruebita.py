@@ -79,21 +79,6 @@ fig = px.bar(
 st.write(fig)
 
 
-
-st.subheader('Monto personal')
-input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
-
-# Verificar si la palabra ingresada es 'lokura'
-if input_text.lower() == 'lokura':
-    resultado = 1
-    st.write(f"Tu monto a la fecha es de: {resultado}")
-else:
-    resultado = 0
-
-
-
-
-
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 sheet_name = 'bets'
@@ -125,6 +110,16 @@ fig.update_layout(
 
 st.plotly_chart(fig)
 
+
+st.subheader('Monto personal')
+input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
+
+# Verificar si la palabra ingresada es 'lokura'
+if input_text.lower() == 'lokura':
+    resultado = 1
+    st.write(f"Tu monto a la fecha es de: {resultado}")
+else:
+    resultado = 0
 
 
 
