@@ -32,7 +32,8 @@ fig = px.bar(
     y=[0, 1],
     labels={'0': 'Perdidas', '1': 'Ganadas'},
     barmode='group',
-    color_discrete_map={'0': 'Perdidas_Color', '1': 'Ganadas_Color'}
+    color_discrete_map={'0': 'Perdidas_Color', '1': 'Ganadas_Color'},
+    category_orders={'CATEGORY': sorted(grouped['CATEGORY'].unique())}
 )
 fig.update_layout(
     xaxis_title='Categoría',
@@ -41,6 +42,7 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
+
 
 
 
