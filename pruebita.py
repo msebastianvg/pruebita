@@ -24,7 +24,7 @@ grouped.reset_index(inplace=True)
 
 # Definir una función para asignar colores
 def assign_color(row):
-    if row['WL'] == 1:
+    if 'WL' in row and row['WL'] == 1:
         return 'lightgreen'
     else:
         return 'mistyrose'
