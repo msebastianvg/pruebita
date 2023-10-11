@@ -54,6 +54,9 @@ df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
 # Seleccionar solo el último valor de "PERCENTAGE" de cada día
 last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
 
+# Formatear las fechas en formato "DD-MM-YYYY"
+last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
+
 fig = px.bar(
     last_pozo_actual,
     x='DATE',
@@ -66,13 +69,12 @@ fig.update_yaxes(
 )
 
 fig.update_layout(
-    xaxis_title='Fecha',
+    xaxis_title='Fecha (DD-MM-YYYY)',
     yaxis_title='Porcentaje de ganancias (%)',
     showlegend=False
 )
 
 st.plotly_chart(fig)
-
 
 
 total_wins = (df['WL'] == 1).sum()
