@@ -26,7 +26,7 @@ fig = px.bar(
     x='DATE',
     y='PERCENTAGE',
     color='Color', 
-    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'}, 
+    #color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'}, 
 )
 fig.update_yaxes(
     ticksuffix="%",  # Agregar el símbolo de porcentaje a las etiquetas del eje Y
