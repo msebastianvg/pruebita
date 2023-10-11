@@ -17,26 +17,18 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 file_path = 'bets-2023-2.xlsx'
 sheet_name = 'bets'
 df = pd.read_excel(file_path, sheet_name=sheet_name)
-
-# Filtrar apuestas ganadas (WL=1)
-ganadas = df[df['WL'] == 1]
-
-# Filtrar apuestas perdidas (WL=0)
-perdidas = df[df['WL'] == 0]
-
-# Crear un gráfico interactivo en Streamlit con barras separadas y colores personalizados
 fig = px.bar(
     df,
     x='CATEGORY',
     color='WL',
-    labels={'0': 'Perdidas', '1': 'Ganadas'},
-    color_discrete_map={0: 'mistyrose', 1: 'lightgreen'}
+    barmode='group',
+    labels={'WL': 'WL'},
+    title='Cantidad de Registros por Categoría y WL',
 )
 fig.update_layout(
     xaxis_title='Categoría',
-    yaxis_title='Cantidad de Apuestas',
+    yaxis_title='Cantidad de Registros',
     showlegend=True,
-    barmode='group'  # Utilizar 'group' para barras separadas
 )
 
 st.plotly_chart(fig)
