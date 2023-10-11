@@ -73,8 +73,8 @@ fig.update_layout(
   #  xaxis=dict(type='category'),
     showlegend=False
 )
-#st.plotly_chart(fig)
-st.pyplot(fig)
+st.plotly_chart(fig)
+
 
 total_wins = (df['WL'] == 1).sum()
 total_losses = (df[df['WL'] == 0]['WL'] == 0).sum()
