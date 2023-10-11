@@ -81,19 +81,19 @@ st.plotly_chart(fig)
 
 
 
-df_mes = df.sort_values(by='DATE').unique().tolist()
+df['DATE'] = pd.to_datetime(df['DATE']).unique().tolist()
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 fig = go.Figure()
 fig.add_trace(go.Bar(
-    x=df_mes,
+    x=df['DATE'],
     y=[20, 14, 25],
     name='Primary Product',
     marker_color='indianred'
 ))
 fig.add_trace(go.Bar(
-    x=df_mes,
+    x=df['DATE'],
     y=[19, 14, 22],
     name='Secondary Product',
     marker_color='lightsalmon'
