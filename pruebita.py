@@ -6,11 +6,12 @@ import matplotlib.ticker as mtick
 from datetime import datetime
 import plotly.express as px
 import plotly.graph_objects as go
-# import seaborn as sns
-# from sklearn.linear_model import LinearRegression
 
 st.title('Reporte BETS - 2023')
+
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
+
+
 
 
 
@@ -75,6 +76,19 @@ fig = px.bar(
     color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"}
 )
 st.write(fig)
+
+
+
+st.subheader('Monto personal')
+input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
+
+# Verificar si la palabra ingresada es 'lokura'
+if input_text.lower() == 'lokura':
+    resultado = 1
+    st.write(f"Tu monto a la fecha es de: {resultado}")
+else:
+    resultado = 0
+
 
 
 
@@ -223,13 +237,4 @@ print(equation)
 
 
 
-st.subheader('Monto personal')
-input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
-
-# Verificar si la palabra ingresada es 'lokura'
-if input_text.lower() == 'lokura':
-    resultado = 1
-    st.write(f"Tu monto a la fecha es de: {resultado}")
-else:
-    resultado = 0
 
