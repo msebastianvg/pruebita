@@ -18,19 +18,20 @@ file_path = 'bets-2023-2.xlsx'
 sheet_name = 'bets'
 df = pd.read_excel(file_path, sheet_name=sheet_name)
 
-
 # Agrupar por 'CATEGORY' y 'WL' y contar la cantidad de registros
 grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
 
 # Reiniciar el índice para tener 'CATEGORY' como una columna
 grouped = grouped.reset_index()
 
+# Cambiar los nombres de las columnas
+grouped = grouped.rename(columns={0: 'Apuestas perdidas', 1: 'Apuestas ganadas'})
+
 # Crear un gráfico interactivo en Streamlit
 fig = px.bar(
     grouped,
     x='CATEGORY',
-    y=[0, 1],  # La suma de registros con WL=0 y WL=1
-    labels={'Perdidas': '0', 'Ganadas': '1'},
+    y=['Apuestas perdidas', 'Apuestas ganadas'],
     barmode='group',
     title='Cantidad de Registros por Categoría y WL',
 )
@@ -39,7 +40,6 @@ fig.update_layout(
     yaxis_title='Suma de Registros',
     showlegend=True,
 )
-
 
 st.plotly_chart(fig)
 
