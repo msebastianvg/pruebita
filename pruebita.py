@@ -31,11 +31,10 @@ grouped = grouped.rename(columns={0: 'Apuestas perdidas', 1: 'Apuestas ganadas'}
 fig = px.bar(
     grouped,
     x='CATEGORY',
-    y=['Perdidas', 'Ganadas'],
+    y=['Apuestas perdidas', 'Apuestas ganadas'],  # Corregir los nombres de las columnas
     barmode='group',
     title='Cantidad de Registros por Categoría y WL',
-    color=["Ganadas", "Perdidas"],
-    color_discrete_map={"Ganadas": "lightgreen", "Perdidas": "mistyrose"},
+    color_discrete_map={"Apuestas ganadas": "lightgreen", "Apuestas perdidas": "mistyrose"},  # Corregir la paleta de colores
 )
 fig.update_layout(
     xaxis_title='Categoría',
