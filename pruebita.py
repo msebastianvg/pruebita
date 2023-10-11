@@ -22,16 +22,6 @@ df = pd.read_excel(file_path, sheet_name=sheet_name)
 grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
 grouped.reset_index(inplace=True)
 
-# Definir una función para asignar colores
-def assign_color(row):
-    if 'WL' in row and row['WL'] == 1:
-        return 'lightgreen'
-    else:
-        return 'mistyrose'
-
-# Aplicar la función para asignar colores
-grouped['Color'] = grouped.apply(assign_color, axis=1)
-
 # Crear un gráfico interactivo en Streamlit con barras separadas y colores personalizados
 fig = px.bar(
     grouped,
@@ -39,7 +29,7 @@ fig = px.bar(
     y=[0, 1],
     labels={'0': 'Perdidas', '1': 'Ganadas'},
     barmode='relative',  # Utilizar barmode='relative' para barras separadas
-    color='Color'
+    color_discrete_map={0: 'mistyrose', 1: 'lightgreen'}
 )
 fig.update_layout(
     xaxis_title='Categoría',
