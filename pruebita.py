@@ -108,6 +108,9 @@ def load_data(nrows):
 
 
 
+st.title(' ')
+
+
 st.subheader('Resultados del periodo anterior (hasta el 08 de Octubre):')
 
 file_path = 'bets - gh.xlsx'
