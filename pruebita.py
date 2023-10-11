@@ -12,40 +12,6 @@ st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
 
-file_path = 'bets-2023-2.xlsx'
-df = pd.read_excel(file_path, sheet_name='bets')
-df['DATE'] = pd.to_datetime(df['DATE'])
-df = df.sort_values(by='DATE')
-last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
-last_pozo_actual['Color'] = 'lightgreen'
-last_pozo_actual.loc[last_pozo_actual['DATE'].isin(df[(df['WL'] == 0)]['DATE']), 'Color'] = 'mistyrose'
-
-# Crear el gráfico utilizando Plotly Express
-fig = px.bar(
-    last_pozo_actual,
-    x='DATE',
-    y='PERCENTAGE',
-    color='Color',
-    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
-)
-
-# Ajustar el formato del eje Y para mostrar los valores como porcentaje
-fig.update_yaxes(
-    ticksuffix="%",  # Agregar el símbolo de porcentaje a las etiquetas del eje Y
-    range=[0, 5],    # Ajustar el rango del eje Y según tus necesidades
-)
-
-# Configurar el diseño del gráfico y otros detalles
-fig.update_layout(
-    title='Último Valor del Pozo Actual por Fecha',
-    xaxis_title='Fecha',
-    yaxis_title='Pozo Actual (%)',
-    showlegend=False
-)
-
-# Mostrar el gráfico en Streamlit utilizando st.pyplot
-st.pyplot(fig)
-
 
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
