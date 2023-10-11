@@ -30,7 +30,7 @@ fig = px.bar(
     grouped,
     x='CATEGORY',
     y=[0, 1],  # La suma de registros con WL=0 y WL=1
-    labels={'0': 'Perdidas', '1': 'Ganadas'},
+    labels={'Perdidas': '0', 'Ganadas': '1'},
     barmode='group',
     title='Cantidad de Registros por Categoría y WL',
 )
