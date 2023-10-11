@@ -78,62 +78,31 @@ st.plotly_chart(fig)
 
 
 
-
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
-df = df.sort_values(by='DATE')
+df = df.groupby('DATE').tail(1)
 
-# Encontrar el valor máximo de 'ID' para cada fecha
-df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
+# Calcular el promedio global de 'PERCENTAGE'
+average_single_global = df['PERCENTAGE'].mean()
 
-# Crear un DataFrame con el último valor de "PERCENTAGE" de cada día
-last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
+# Asignar colores según 'WL'
+color_map = {'0': 'red', 1: 'green'}
 
-# Formatear las fechas en formato "DD-MM-YYYY"
-last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
-
-# Crear un DataFrame para los valores de 'WL' del último 'ID' para cada fecha
-last_wl = df[df['ID'] == df['Max_ID']]
-
-# Asignar los colores en función de 'WL' y 'ID'
-colors = []
-for date in last_pozo_actual['DATE']:
-    last_wl_value = last_wl[last_wl['DATE'] == date]['WL']
-    if not last_wl_value.empty:
-        last_wl_value = last_wl_value.values[0]
-        if last_wl_value == 1:
-            colors.append('lightgreen')
-        else:
-            colors.append('lightyellow')
-    else:
-        colors.append('lightyellow')  # Color predeterminado si no hay coincidencia
-
-last_pozo_actual['Color'] = colors
-
-fig = px.bar(
-    last_pozo_actual,
-    x='DATE',
-    y='PERCENTAGE',
-    color='Color',
-    color_discrete_map={'lightgreen': 'lightgreen', 'lightyellow': 'lightyellow'}
-)
-
-fig.update_yaxes(
-    ticksuffix="%",
-    range=[0, 5]
-)
-
+# Crear un gráfico interactivo utilizando Plotly Express
+fig = px.bar(df, x='DATE', y='PERCENTAGE', color='WL', color_discrete_map=color_map, labels={'PERCENTAGE': 'GANANCIAS (%)'})
+fig.update_traces(marker_line_width=0)  # Eliminar las líneas de borde
 fig.update_layout(
-    xaxis_title='Fecha (DD-MM-YYYY)',
-    yaxis_title='Porcentaje de ganancias (%)',
-    showlegend=False
+    xaxis_title='FECHA',
+    yaxis_title='GANANCIAS (%)',
+    yaxis_tickformat='%',
+    title='GANANCIAS (%) POR FECHA',
+    showlegend=True,
 )
+fig.add_hline(y=average_single_global, line_dash='dash', line_color='blue', name='PROMEDIO DE GANANCIAS (%)')
 
-fig.update_xaxes(categoryorder='total ascending')  # Ordenar por fecha
-
+# Mostrar el gráfico interactivo en Streamlit
 st.plotly_chart(fig)
-
 
 
 
