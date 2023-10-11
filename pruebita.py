@@ -17,20 +17,22 @@ file_path = 'bets-2023-2.xlsx'
 sheet_name = 'bets'
 df = pd.read_excel(file_path, sheet_name=sheet_name)
 
-
-
 # Calcular las apuestas ganadas y perdidas por categoría
 grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
 grouped.reset_index(inplace=True)
 
-# Asignar colores a las barras
+# Asignar colores directamente a los datos
+grouped['Ganadas_Color'] = 'lightgreen'
+grouped['Perdidas_Color'] = 'mistyrose'
+
+# Crear un gráfico interactivo en Streamlit con barras separadas y colores personalizados
 fig = px.bar(
     grouped,
     x='CATEGORY',
     y=[0, 1],
     labels={'0': 'Perdidas', '1': 'Ganadas'},
     barmode='group',
-    color_discrete_map={0: 'mistyrose', 1: 'lightgreen'}
+    color_discrete_map={'0': 'Perdidas_Color', '1': 'Ganadas_Color'}
 )
 fig.update_layout(
     xaxis_title='Categoría',
@@ -39,6 +41,7 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
+
 
 
 
