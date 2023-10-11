@@ -69,7 +69,7 @@ fig.update_yaxes(
 )
 
 fig.update_layout(
-    xaxis_title='Fecha (DD-MM-YYYY)',
+    xaxis_title='Periodo',
     yaxis_title='Porcentaje de ganancias (%)',
     showlegend=False
 )
