@@ -26,7 +26,7 @@ fig = px.bar(
     x='DATE',
     y='PERCENTAGE',
     color='Color', 
-    #color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'}, 
+    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'}, 
 )
 fig.update_yaxes(
     ticksuffix="%",  # Agregar el símbolo de porcentaje a las etiquetas del eje Y
@@ -35,7 +35,7 @@ fig.update_yaxes(
 fig.update_layout(
     xaxis_title='Fecha',
     yaxis_title='Porcentaje de ganancias (%)',
-    xaxis=dict(type='category'),
+    # xaxis=dict(type='category'),
     showlegend=False
 )
 st.plotly_chart(fig)
