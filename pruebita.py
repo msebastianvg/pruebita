@@ -17,12 +17,13 @@ file_path = 'bets-2023-2.xlsx'
 sheet_name = 'bets'
 df = pd.read_excel(file_path, sheet_name=sheet_name)
 
+
 # Calcular las apuestas ganadas y perdidas por categoría
 grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
 grouped.reset_index(inplace=True)
 
-# Crear un gráfico interactivo en Streamlit con dos barras por categoría
-fig = px.bar(grouped, x='CATEGORY', y=[0, 1], labels={'0': 'Perdidas', '1': 'Ganadas'})
+# Crear un gráfico interactivo en Streamlit con barras separadas
+fig = px.bar(grouped, x='CATEGORY', y=[0, 1], labels={'0': 'Perdidas', '1': 'Ganadas'}, barmode='group')
 fig.update_layout(
     xaxis_title='Categoría',
     yaxis_title='Cantidad de Apuestas',
