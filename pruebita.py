@@ -43,7 +43,7 @@ fig = px.bar(
 
 fig.update_yaxes(
     ticksuffix="%",
-    range=[-10, 5]
+    range=[0, 5]
 )
 
 fig.update_layout(
@@ -74,7 +74,7 @@ fig = px.bar(
 )
 fig.update_yaxes(
     ticksuffix="%",  # Agregar el símbolo de porcentaje a las etiquetas del eje Y
-    range=[-10, 5],    # Ajustar el rango del eje Y según tus necesidades
+    range=[0, 5],    # Ajustar el rango del eje Y según tus necesidades
 )
 fig.update_layout(
     xaxis_title='Fecha',
