@@ -87,10 +87,10 @@ df = df.groupby('DATE').tail(1)
 average_single_global = df['PERCENTAGE'].mean()
 
 # Asignar colores según 'WL'
-color_map = {'0': 'red', 1: 'green'}
+df['Color'] = df['WL'].map({0: 'yellow', 1: 'green'})
 
 # Crear un gráfico interactivo utilizando Plotly Express
-fig = px.bar(df, x='DATE', y='PERCENTAGE', color='WL', color_discrete_map=color_map, labels={'PERCENTAGE': 'GANANCIAS (%)'})
+fig = px.bar(df, x='DATE', y='PERCENTAGE', color='Color', labels={'PERCENTAGE': 'GANANCIAS (%)'})
 fig.update_traces(marker_line_width=0)  # Eliminar las líneas de borde
 fig.update_layout(
     xaxis_title='FECHA',
