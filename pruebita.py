@@ -125,6 +125,41 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 
+
+
+df = pd.read_excel(file_path, sheet_name=sheet_name)
+
+# Agrupar por 'CATEGORY' y 'WL' y sumar la cantidad de apuestas ganadas y apuestas perdidas
+grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
+grouped = grouped.reset_index()
+
+# Calcular la suma de apuestas ganadas y apuestas perdidas por categoría
+grouped['Total Apuestas Ganadas'] = grouped[1]  # Renombrar para mayor claridad
+grouped['Total Apuestas Perdidas'] = grouped[0]  # Renombrar para mayor claridad
+
+# Crear un gráfico de radar
+fig = px.line_polar(
+    grouped,
+    r=['Total Apuestas Ganadas', 'Total Apuestas Perdidas'],
+    theta='CATEGORY',
+    line_close=True,
+)
+fig.update_layout(
+    polar=dict(
+        radialaxis=dict(
+            visible=True,
+            title="Cantidad de apuestas"
+        ),
+    ),
+    showlegend=True,
+)
+
+st.plotly_chart(fig)
+
+
+
+
+
 st.subheader('Monto personal')
 input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
 
