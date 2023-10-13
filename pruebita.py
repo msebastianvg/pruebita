@@ -137,12 +137,8 @@ else:
 
 
 
-
-
-
-
-st.title(' ')
-
+st.subheader(' ')
+st.subheader(' ')
 
 st.subheader('Resultados del periodo anterior (hasta el 08 de Octubre):')
 
