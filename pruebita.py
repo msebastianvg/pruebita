@@ -126,12 +126,6 @@ st.plotly_chart(fig)
 
 
 
-
-# Cargar los datos desde el archivo Excel
-file_path = 'bets-2023-2.xlsx'
-sheet_name = 'bets'
-df = pd.read_excel(file_path, sheet_name=sheet_name)
-
 # Agrupar por 'CATEGORY' y 'WL' y sumar la cantidad de apuestas ganadas y apuestas perdidas
 grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
 grouped = grouped.reset_index()
@@ -163,14 +157,16 @@ fig.update_layout(
     polar=dict(
         radialaxis=dict(
             visible=True,
-            title="Cantidad de apuestas"
+            title="Cantidad de apuestas",
+            tickmode='array',
+            tickvals=[0, 10, 20, 30, 40],  # Definir los valores de los ticks
+            ticktext=['0', '10', '20', '30', '40'],  # Definir las etiquetas de los ticks
         ),
     ),
     showlegend=True,
 )
 
 st.plotly_chart(fig)
-
 
 
 
