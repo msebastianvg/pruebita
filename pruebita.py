@@ -127,6 +127,9 @@ st.plotly_chart(fig)
 
 
 
+# Cargar los datos desde el archivo Excel
+file_path = 'bets-2023-2.xlsx'
+sheet_name = 'bets'
 df = pd.read_excel(file_path, sheet_name=sheet_name)
 
 # Agrupar por 'CATEGORY' y 'WL' y sumar la cantidad de apuestas ganadas y apuestas perdidas
@@ -134,16 +137,28 @@ grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
 grouped = grouped.reset_index()
 
 # Calcular la suma de apuestas ganadas y apuestas perdidas por categoría
-grouped['Total Apuestas Ganadas'] = grouped[1]  # Renombrar para mayor claridad
-grouped['Total Apuestas Perdidas'] = grouped[0]  # Renombrar para mayor claridad
+grouped['Total Apuestas Ganadas'] = grouped[1]
+grouped['Total Apuestas Perdidas'] = grouped[0]
 
-# Crear un gráfico de radar
-fig = px.line_polar(
-    grouped,
-    r=['Total Apuestas Ganadas', 'Total Apuestas Perdidas'],
-    theta='CATEGORY',
-    line_close=True,
-)
+# Crear un gráfico de radar con plotly.graph_objects
+import plotly.graph_objects as go
+
+fig = go.Figure()
+
+fig.add_trace(go.Scatterpolar(
+    r=grouped['Total Apuestas Ganadas'],
+    theta=grouped['CATEGORY'],
+    fill='toself',
+    name='Apuestas Ganadas'
+))
+
+fig.add_trace(go.Scatterpolar(
+    r=grouped['Total Apuestas Perdidas'],
+    theta=grouped['CATEGORY'],
+    fill='toself',
+    name='Apuestas Perdidas'
+))
+
 fig.update_layout(
     polar=dict(
         radialaxis=dict(
@@ -155,7 +170,6 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
-
 
 
 
