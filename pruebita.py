@@ -126,48 +126,6 @@ st.plotly_chart(fig)
 
 
 
-# Agrupar por 'CATEGORY' y 'WL' y sumar la cantidad de apuestas ganadas y apuestas perdidas
-grouped = df.groupby(['CATEGORY', 'WL']).size().unstack(fill_value=0)
-grouped = grouped.reset_index()
-
-# Calcular la suma de apuestas ganadas y apuestas perdidas por categoría
-grouped['Total Apuestas Ganadas'] = grouped[1]
-grouped['Total Apuestas Perdidas'] = grouped[0]
-
-# Crear un gráfico de radar con plotly.graph_objects
-import plotly.graph_objects as go
-
-fig = go.Figure()
-
-fig.add_trace(go.Scatterpolar(
-    r=grouped['Total Apuestas Ganadas'],
-    theta=grouped['CATEGORY'],
-    fill='toself',
-    name='Apuestas Ganadas'
-))
-
-fig.add_trace(go.Scatterpolar(
-    r=grouped['Total Apuestas Perdidas'],
-    theta=grouped['CATEGORY'],
-    fill='toself',
-    name='Apuestas Perdidas'
-))
-
-fig.update_layout(
-    polar=dict(
-        radialaxis=dict(
-            visible=True,
-            title="Cantidad de apuestas",
-            tickmode='array',
-            tickvals=[0, 10, 20, 30, 40],  # Definir los valores de los ticks
-            ticktext=['0', '10', '20', '30', '40'],  # Definir las etiquetas de los ticks
-        ),
-    ),
-    showlegend=True,
-)
-
-st.plotly_chart(fig)
-
 
 
 st.subheader('Monto personal')
