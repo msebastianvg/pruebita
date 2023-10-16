@@ -75,27 +75,6 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 
-# Datos simulados para el KPI
-valor_actual = 75000
-valor_anterior = 70000
-
-# Calcula la variación porcentual
-variacion_porcentual = ((valor_actual - valor_anterior) / valor_anterior) * 100
-
-# Componente para mostrar el KPI
-st.title("KPI Elegante")
-st.markdown("Este es un indicador clave de desempeño elegante.")
-
-# Diseño del KPI
-st.write(f"Valor Actual: ${valor_actual:,.0f}")
-st.write(f"Valor Anterior: ${valor_anterior:,.0f}")
-st.write(f"Variación Porcentual: {variacion_porcentual:.2f}%")
-
-# Estilo del KPI
-st.write("----")
-st.markdown('<style>h1{color: #900C3F;}</style>', unsafe_allow_html=True)
-st.markdown('<style>h2{color: #900C3F;}</style>', unsafe_allow_html=True)
-st.markdown('<style>h3{color: #900C3F;}</style>', unsafe_allow_html=True)
 
 
 
