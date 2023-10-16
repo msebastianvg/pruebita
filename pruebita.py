@@ -44,6 +44,7 @@ last_wl.loc[last_wl['WL'] == 0, 'Color'] = 'mistyrose'
 
 # Combinar los DataFrames 'last_pozo_actual' y 'last_wl' para tener los colores
 last_pozo_actual = last_pozo_actual.merge(last_wl[['DATE', 'Color']], on='DATE', how='left')
+last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
 
 fig = px.bar(
     last_pozo_actual,
