@@ -6,6 +6,7 @@ import matplotlib.ticker as mtick
 from datetime import datetime
 import plotly.express as px
 import plotly.graph_objects as go
+from streamlit_extras.metric_cards import style_metric_cards
 
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
@@ -73,6 +74,14 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
+
+
+
+col1 = st.columns(1)
+col1.metric(label="Gain", value=5000, delta=1000)
+style_metric_cards()
+
+
 
 
 
