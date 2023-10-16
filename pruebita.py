@@ -128,6 +128,13 @@ fig = px.bar(
 st.write(fig)
 
 
+col1 = st.columns(1)
+label1 = "Porcentaje de victorias"
+value1 = media
+col1.metric(label=label1, value=value1, delta=None)
+
+
+
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 sheet_name = 'bets'
