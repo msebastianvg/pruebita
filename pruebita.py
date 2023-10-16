@@ -185,11 +185,11 @@ if input_text.lower() == 'ornn':
     st.write(f"Tu monto a la fecha es de: {valor_v_v}")
 elif input_text.lower() == 'rufi':
     valor_e_e = f"${valor_e:,.0f} CLP"
-    st.write(f"Tu monto a la fecha es de: {valor_e_e}")  
+    st.write(f"Tu monto a la fecha es de: {valor_e_e.replace(',', '-')}")  
 elif input_text.lower() == 'morty':
     valor_c_c = f"${valor_c:,.0f} CLP"
-    st.write(f"Tu monto a la fecha es de: {valor_c_c}")  
-elif input_text.lower() == 'mtg':
+    st.write(f"Tu monto a la fecha es de: {valor_c_c.replace(",", ".")}")  
+elif input_text.lower() == 'duskelokura':
     valor_m_m = f"${valor_m:,.0f} CLP"
     st.write(f"Tu monto a la fecha es de: {valor_m_m}")  
 else:
