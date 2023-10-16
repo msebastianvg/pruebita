@@ -184,10 +184,10 @@ if input_text.lower() == 'ornn':
     valor_v_v = f"${formatear_miles(valor_v)}"
     st.write(f"Tu monto a la fecha es de: {valor_v_v}")
 elif input_text.lower() == 'rufi':
-    valor_e_e = f"${formatear_miles(valor_e)}"
+    valor_e_e = f"${valor_e:,.0f} CLP"
     st.write(f"Tu monto a la fecha es de: {valor_e_e}")  
 elif input_text.lower() == 'morty':
-    valor_c = f"${formatear_miles(valor_c)}"
+    valor_c = f"${valor_c:,.0f} CLP"
     st.write(f"Tu monto a la fecha es de: {valor_c}")  
 else:
     resultado = 0
