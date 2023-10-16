@@ -181,7 +181,7 @@ if not filtro_tipo_2.empty:
 if input_text.lower() == 'ornn':
     valor_v = f"${valor_v:,.0f}"
     st.write(f"Tu monto a la fecha es de: {valor_v}")
-else if input_text.lower() == 'rufi':
+elif input_text.lower() == 'rufi':
     valor_e_e = f"${valor_e:,.0f}"
     st.write(f"Tu monto a la fecha es de: {valor_e_e}")  
 else:
