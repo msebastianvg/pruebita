@@ -77,6 +77,28 @@ st.plotly_chart(fig)
 
 
 
+
+
+# Encontrar el último valor de PERCENTAGE según la última fecha DATE
+ultimo_percentage = df.loc[df['DATE'].idxmax()]['PERCENTAGE']
+
+# Encontrar la fecha de la última pérdida (WL=0)
+ultima_perdida = df.loc[df['WL'] == 0, 'DATE'].max()
+
+# Calcular la cantidad de apuestas ganadas desde la última pérdida
+apuestas_ganadas_desde_ultima_perdida = df[(df['DATE'] > ultima_perdida) & (df['WL'] == 1)]['WL'].count()
+
+# Crear los KPI en Streamlit
+st.title("KPIs")
+st.header("Último Valor de PERCENTAGE")
+st.write(f"El último valor de PERCENTAGE es: {ultimo_percentage}")
+
+st.header("Cantidad de Apuestas Ganadas desde la Última Pérdida")
+st.write(f"La cantidad de apuestas ganadas desde la última pérdida es: {apuestas_ganadas_desde_ultima_perdida}")
+
+
+
+
 # Crear una columna
 col1, col2 = st.columns(2)
 
