@@ -131,8 +131,7 @@ st.write(fig)
 col1 = st.columns(1)
 label1 = "Porcentaje de victorias"
 value1 = media
-delta1 = None
-col1.metric(label=label1, value=value1, delta=delta1)
+col1.metric(label=label1, value=value1)
 
 
 
