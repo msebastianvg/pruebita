@@ -77,10 +77,16 @@ st.plotly_chart(fig)
 
 
 
-col1 = st.columns(1)
-col1.metric(label="Gain", value=5000, delta=1000)
-style_metric_cards()
+# Crear una columna
+col1, col2 = st.columns(2)
 
+# Definir los valores para el panel métrico
+label = "Gain"
+value = 5000
+delta = 1000
+
+# Crear el panel métrico
+col1.metric(label=label, value=value, delta=delta)
 
 
 
