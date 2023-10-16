@@ -127,7 +127,7 @@ fig = px.bar(
 )
 st.write(fig)
 
-st.metric(label="Porcentaje de victorias", value=total_wins/(total_losses+total_wins))
+st.metric(label="Porcentaje de victorias", value=f"{total_wins/(total_losses+total_wins):.1%}" )
 
 
 
