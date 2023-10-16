@@ -172,10 +172,14 @@ df = pd.read_excel(file_path, sheet_name='resumen')
 filtro_tipo_2 = df[df['TIPO'] == 2]
 if not filtro_tipo_2.empty:
     valor_v = filtro_tipo_2.iloc[0]['V']
+    valor_c = filtro_tipo_2.iloc[0]['C']
+    valor_e = filtro_tipo_2.iloc[0]['E']
+    valor_m = filtro_tipo_2.iloc[0]['M']
+    valor_cc = filtro_tipo_2.iloc[0]['CC']
 
 # Verificar si la palabra ingresada es 'lokura'
 if input_text.lower() == 'ornn':
-    resultado = 1
+    valor_v = f"${valor_v:,.0f}"
     st.write(f"Tu monto a la fecha es de: {valor_v}")
 else:
     resultado = 0
