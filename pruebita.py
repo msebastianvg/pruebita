@@ -79,8 +79,11 @@ st.plotly_chart(fig)
 
 
 
-# Encontrar el último valor de PERCENTAGE según la última fecha DATE
-ultimo_percentage = df.loc[df['DATE'].idxmax()]['PERCENTAGE']
+df = df.sort_values(by='ID', ascending=False)
+
+# Obtener el primer valor de PERCENTAGE después de ordenar
+ultimo_percentage = df['PERCENTAGE'].iloc[0]
+penultimo_percentage = df['PERCENTAGE'].iloc[1]
 
 # Encontrar la fecha de la última pérdida (WL=0)
 ultima_perdida = df.loc[df['WL'] == 0, 'DATE'].max()
@@ -88,24 +91,14 @@ ultima_perdida = df.loc[df['WL'] == 0, 'DATE'].max()
 # Calcular la cantidad de apuestas ganadas desde la última pérdida
 apuestas_ganadas_desde_ultima_perdida = df[(df['DATE'] > ultima_perdida) & (df['WL'] == 1)]['WL'].count()
 
-# Crear los KPI en Streamlit
-st.title("KPIs")
-st.header("Último Valor de PERCENTAGE")
-st.write(f"El último valor de PERCENTAGE es: {ultimo_percentage}")
-
-st.header("Cantidad de Apuestas Ganadas desde la Última Pérdida")
-st.write(f"La cantidad de apuestas ganadas desde la última pérdida es: {apuestas_ganadas_desde_ultima_perdida}")
-
-
-
 
 # Crear una columna
 col1, col2 = st.columns(2)
 
 # Definir los valores para el panel métrico
-label = "Gain"
-value = 5000
-delta = 1000
+label = "Porcentaje de ganancia actual"
+value = ultimo_percentage
+delta = penultimo_percentage
 
 # Crear el panel métrico
 col1.metric(label=label, value=value, delta=delta)
