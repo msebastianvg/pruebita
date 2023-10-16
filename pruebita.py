@@ -19,6 +19,8 @@ def load_data(nrows):
     data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
     return data
 
+def formatear_miles(numero):
+    return '{:,.0f}'.format(numero).replace(',', '.')
 
 
 st.title('Reporte BETS - 2023')
@@ -179,13 +181,13 @@ if not filtro_tipo_2.empty:
 
 # Verificar si la palabra ingresada es 'lokura'
 if input_text.lower() == 'ornn':
-    valor_v_v = f"${valor_v:,}"
+    valor_v_v = f"${formatear_miles(valor_v)}"
     st.write(f"Tu monto a la fecha es de: {valor_v_v}")
 elif input_text.lower() == 'rufi':
-    valor_e_e = f"${valor_e:,}"
+    valor_e_e = f"${formatear_miles(valor_e)}"
     st.write(f"Tu monto a la fecha es de: {valor_e_e}")  
 elif input_text.lower() == 'morty':
-    valor_c = f"${valor_c:,}"
+    valor_c = f"${formatear_miles(valor_c)}"
     st.write(f"Tu monto a la fecha es de: {valor_c}")  
 else:
     resultado = 0
