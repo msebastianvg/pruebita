@@ -26,6 +26,7 @@ st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
 
+# Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
@@ -62,7 +63,10 @@ fig.update_yaxes(
 fig.update_layout(
     xaxis_title='Fecha',
     yaxis_title='Porcentaje de ganancias (%)',
-    xaxis=dict(type='category'),
+    xaxis=dict(
+        type='category',
+        categoryorder='category ascending'  # Ordenar las fechas de manera ascendente
+    ),
     showlegend=False
 )
 
