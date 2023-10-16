@@ -127,12 +127,7 @@ fig = px.bar(
 )
 st.write(fig)
 
-
-col1 = st.columns(1)
-label1 = "Porcentaje de victorias"
-value1 = total_wins/(total_losses+total_wins)
-delta1 = 0
-col1.metric(label=label1, value=value1, delta=delta1)
+st.metric(label="Porcentaje de victorias", value=total_wins/(total_losses+total_wins))
 
 
 
