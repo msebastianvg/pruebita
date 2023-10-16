@@ -160,6 +160,8 @@ fig.update_layout(
     showlegend=True,
 )
 
+fig.update_xaxes(categoryorder='total ascending')
+
 st.plotly_chart(fig)
 
 
@@ -194,6 +196,8 @@ fig.update_layout(
     yaxis_title='Cantidad de apuestas',
     showlegend=True,
 )
+
+fig.update_xaxes(categoryorder='total ascending')
 
 st.plotly_chart(fig)
 
