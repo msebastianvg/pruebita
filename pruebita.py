@@ -168,10 +168,15 @@ st.plotly_chart(fig)
 st.subheader('Monto personal')
 input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
 
+df = pd.read_excel(file_path, sheet_name='resumen')
+filtro_tipo_2 = df[df['TIPO'] == 2]
+if not filtro_tipo_2.empty:
+    valor_v = filtro_tipo_2.iloc[0]['V']
+
 # Verificar si la palabra ingresada es 'lokura'
-if input_text.lower() == 'lokura':
+if input_text.lower() == 'ornn':
     resultado = 1
-    st.write(f"Tu monto a la fecha es de: {resultado}")
+    st.write(f"Tu monto a la fecha es de: {valor_v}")
 else:
     resultado = 0
 
