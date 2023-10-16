@@ -179,11 +179,14 @@ if not filtro_tipo_2.empty:
 
 # Verificar si la palabra ingresada es 'lokura'
 if input_text.lower() == 'ornn':
-    valor_v = f"${valor_v:,.0f}"
-    st.write(f"Tu monto a la fecha es de: {valor_v}")
+    valor_v_v = f"${valor_v:,}"
+    st.write(f"Tu monto a la fecha es de: {valor_v_v}")
 elif input_text.lower() == 'rufi':
-    valor_e_e = f"${valor_e:,.0f}"
+    valor_e_e = f"${valor_e:,}"
     st.write(f"Tu monto a la fecha es de: {valor_e_e}")  
+elif input_text.lower() == 'morty':
+    valor_c = f"${valor_c:,}"
+    st.write(f"Tu monto a la fecha es de: {valor_c}")  
 else:
     resultado = 0
 
