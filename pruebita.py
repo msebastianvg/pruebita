@@ -95,8 +95,8 @@ cantidad_apuestas_ganadas_ultimo_dia = len(apuestas_ganadas_ultimo_dia)
 col1, col2 = st.columns(2)
 
 label1 = "Porcentaje de ganancia actual"
-value1 = ultimo_percentage
-delta1 = ultimo_percentage - penultimo_percentage
+value1 = f"{ultimo_percentage:.1%}"
+delta1 = f"{ultimo_percentage - penultimo_percentage:.1%}" 
 
 label2 = "Racha de victorias"
 value2 = apuestas_ganadas_desde_ultima_perdida
