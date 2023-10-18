@@ -236,10 +236,9 @@ else:
 
 
 
-st.caption(' ')
-st.caption(' ')
+st.divider(' ')
 
-st.caption('Resultados del periodo anterior (hasta el 08 de Octubre):')
+st.text('Resultados del periodo anterior (hasta el 08 de Octubre):')
 
 file_path = 'bets - gh.xlsx'
 #file_path = 'https://github.com/msebastianvg/pruebita/blob/726e5dc6981883405d77349748318ec156c82583/bets%20-%20gh.xlsx'  # Replace with the actual path to your Excel file
