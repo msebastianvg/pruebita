@@ -236,7 +236,7 @@ else:
 
 
 
-st.divider(' ')
+st.divider('sdgdh')
 
 st.text('Resultados del periodo anterior (hasta el 08 de Octubre):')
 
