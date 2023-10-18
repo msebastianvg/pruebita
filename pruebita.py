@@ -303,60 +303,6 @@ st.plotly_chart(fig)
 
 
 
-min_single = df['PERCENTAGE'].min()
-max_single = df['PERCENTAGE'].max() + 0.01
-df['DATE'] = pd.to_datetime(df['DATE'])
-df = df.groupby('DATE').tail(1)
-average_single_global = df['PERCENTAGE'].mean()
-st.write("Porcentaje de ganancias")
-fig, ax = plt.subplots(figsize=(10, 6))
-colors = ['lightgreen' if wl == 1 else 'orange' for wl in df['WL']]
-ax.bar(df['DATE'], df['PERCENTAGE'], color=colors)
-ax.set_xlabel('FECHA')
-ax.set_ylabel('GANANCIAS (%)')
-ax.yaxis.set_major_formatter('{:.0%}'.format)
-ax.set_title('GANANCIAS (%) POR FECHA')
-ax.set_ylim([min_single, max_single])
-plt.xticks(rotation=45)
-ax.axhline(average_single_global, color='blue', linestyle='--', label='PROMEDIO DE GANANCIAS (%)')
-ax.legend()
-st.pyplot(fig)
-
-
-
-
-# df = pd.read_excel('E:\\B\\bets.xlsx')
-
-reference_date = pd.to_datetime("2023-01-01")  # Establece tu fecha de referencia
-df['DAYS_FROM_REFERENCE'] = (df['DATE'] - reference_date).dt.days
-
-# Extrae los datos de 'DAYS_FROM_REFERENCE' y 'SINGLE' del DataFrame
-X = df['DAYS_FROM_REFERENCE'].values
-Y = df['PERCENTAGE'].values
-
-# Calcula la media de X e Y
-mean_X = np.mean(X)
-mean_Y = np.mean(Y)
-
-# Calcula la desviación estándar de X e Y
-std_X = np.std(X)
-std_Y = np.std(Y)
-
-# Calcula el coeficiente de la pendiente (a) y el intercepto (b) de la regresión lineal
-a = np.sum((X - mean_X) * (Y - mean_Y)) / np.sum((X - mean_X) ** 2)
-b = mean_Y - a * mean_X
-
-# Construye la ecuación lineal Y = aX + b
-equation = f"Y = {a:.2f}X + {b:.2f}"
-
-# Imprime la ecuación lineal
-print("Ecuación Lineal:")
-print(equation)
-
-
-
-
-
 
 
 
