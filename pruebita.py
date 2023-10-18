@@ -95,8 +95,8 @@ cantidad_apuestas_ganadas_ultimo_dia = len(apuestas_ganadas_ultimo_dia)
 col1, col2 = st.columns(2)
 
 label1 = "Porcentaje de ganancia actual"
-value1 = f"{ultimo_percentage/100:.1%}"
-delta1 = f"{(ultimo_percentage - penultimo_percentage)/100:.1%}" 
+value1 = f"{ultimo_percentage/100:.2%}"
+delta1 = f"{(ultimo_percentage - penultimo_percentage)/100:.2%}" 
 
 label2 = "Racha de victorias"
 value2 = apuestas_ganadas_desde_ultima_perdida
@@ -127,7 +127,7 @@ fig = px.bar(
 )
 st.write(fig)
 
-st.metric(label="Porcentaje de victorias", value=f"{total_wins/(total_losses+total_wins):.1%}" )
+st.metric(label="Porcentaje de victorias", value=f"{total_wins/(total_losses+total_wins):.2%}" )
 
 
 
