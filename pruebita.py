@@ -78,6 +78,18 @@ st.plotly_chart(fig)
 
 
 
+df = df.sort_values(by='ID', ascending=False)
+
+ultimo_percentage = df['PERCENTAGE'].iloc[0]
+penultimo_percentage = df['PERCENTAGE'].iloc[1]
+
+ultima_perdida = df.loc[df['WL'] == 0, 'DATE'].max()
+
+apuestas_ganadas_desde_ultima_perdida = df[(df['DATE'] > ultima_perdida) & (df['WL'] == 1)]['WL'].count()
+
+fecha_maxima = df['DATE'].max()
+apuestas_ganadas_ultimo_dia = df[(df['DATE'] == fecha_maxima) & (df['WL'] == 1)]
+cantidad_apuestas_ganadas_ultimo_dia = len(apuestas_ganadas_ultimo_dia)
 
 
 
