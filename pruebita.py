@@ -117,7 +117,7 @@ col1, col2 = st.columns(2)
 
 label1 = "Porcentaje de ganancia actual"
 value1 = f"{ultimo_percentage/100:.2%}"
-delta1 = f"{(ultimo_percentage - penúltimo_percentage)/100:.2%}"
+delta1 = f"{(ultimo_percentage - penultimo_percentage)/100:.2%}" 
 
 label2 = "Racha de victorias"
 value2 = apuestas_ganadas_desde_ultima_perdida
