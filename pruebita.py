@@ -79,32 +79,6 @@ st.plotly_chart(fig)
 
 
 
-df = df.sort_values(by='ID', ascending=False)
-
-ultimo_percentage = df['PERCENTAGE'].iloc[0]
-penultimo_percentage = df['PERCENTAGE'].iloc[1]
-
-ultima_perdida = df.loc[df['WL'] == 0, 'DATE'].max()
-
-apuestas_ganadas_desde_ultima_perdida = df[(df['DATE'] > ultima_perdida) & (df['WL'] == 1)]['WL'].count()
-
-fecha_maxima = df['DATE'].max()
-apuestas_ganadas_ultimo_dia = df[(df['DATE'] == fecha_maxima) & (df['WL'] == 1)]
-cantidad_apuestas_ganadas_ultimo_dia = len(apuestas_ganadas_ultimo_dia)
-
-col1, col2 = st.columns(2)
-
-label1 = "Porcentaje de ganancia actual"
-value1 = f"{ultimo_percentage/100:.2%}"
-delta1 = f"{(ultimo_percentage - penultimo_percentage)/100:.2%}" 
-
-label2 = "Racha de victorias"
-value2 = apuestas_ganadas_desde_ultima_perdida
-delta2 = cantidad_apuestas_ganadas_ultimo_dia
-
-# Crear el panel métrico
-col1.metric(label=label1, value=value1, delta=delta1)
-col2.metric(label=label2, value=value2, delta=delta2)
 
 
 # Obtener el último registro con WL=0 ordenado por ID
