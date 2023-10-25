@@ -221,7 +221,7 @@ st.subheader('Monto personal')
 input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
 
 df = pd.read_excel(file_path, sheet_name='resumen')
-filtro_tipo_2 = df[df['TIPO'] == 2]
+filtro_tipo_2 = df[df['TIPO'] == 3]
 if not filtro_tipo_2.empty:
     valor_v = filtro_tipo_2.iloc[0]['V']
     valor_c = filtro_tipo_2.iloc[0]['C']
