@@ -31,21 +31,19 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 
 
 
-
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
 df = df.dropna(subset=['DATE'])
-df = df.sort_values(by='DATE', ascending=True)
+df = df.sort_values(by='DATE')  # Ordenar por fecha en orden ascendente
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
 last_records = df[df['ID'] == df['Max_ID']]
 last_records['Color'] = 'lightgreen'
 last_records.loc[last_records['WL'] == 0, 'Color'] = 'mistyrose'
 last_pozo_actual = last_records.groupby('DATE')['PERCENTAGE'].last().reset_index()
 
-last_pozo_actual = last_pozo_actual.merge(last_records[['DATE', 'Color']], on='DATE', how='left')
-last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
-
+# Ajustar el formato de la fecha para orden correcto
+last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%Y-%m-%d')
 
 # Crear el gráfico
 fig = px.bar(
@@ -66,7 +64,7 @@ fig.update_layout(
     yaxis_title='Porcentaje de ganancias (%)',
     xaxis=dict(
         type='category',
-        categoryorder='category ascending'
+        categoryorder='total ascending'  # Ordenar las fechas correctamente
     ),
     showlegend=False
 )
