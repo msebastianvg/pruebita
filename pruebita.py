@@ -29,6 +29,62 @@ st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
 
+
+# Cargar los datos desde el archivo Excel
+file_path = 'bets-2023-2.xlsx'
+df = pd.read_excel(file_path, sheet_name='bets')
+df['DATE'] = pd.to_datetime(df['DATE'])
+
+df = df.sort_values(by='DATE')
+
+# Encontrar el valor máximo de 'ID' para cada fecha
+df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
+
+# Filtrar solo los registros con el ID máximo
+last_wl = df[df['ID'] == df['Max_ID']]
+
+# Filtrar solo el último valor de "PERCENTAGE" para cada día
+last_pozo_actual = last_wl.groupby('DATE')['PERCENTAGE'].last().reset_index()
+
+# Aplicar la lógica de colores en función de 'WL'
+last_wl['Color'] = 'lightgreen'
+last_wl.loc[last_wl['WL'] == 0, 'Color'] = 'mistyrose'
+
+# Combinar los DataFrames 'last_pozo_actual' y 'last_wl' para tener los colores
+last_pozo_actual = last_pozo_actual.merge(last_wl[['DATE', 'Color']], on='DATE', how='left')
+last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
+
+fig = px.bar(
+    last_pozo_actual,
+    x='DATE',
+    y='PERCENTAGE',
+    color='Color',
+    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
+)
+
+fig.update_yaxes(
+    ticksuffix="%",
+    range=[0, 5]
+)
+
+fig.update_layout(
+    xaxis_title='Fecha',
+    yaxis_title='Porcentaje de ganancias (%)',
+    xaxis=dict(
+        type='category',
+        categoryorder='category ascending'  # Ordenar las fechas de manera ascendente
+    ),
+    showlegend=False
+)
+
+st.plotly_chart(fig)
+
+
+
+
+
+
+
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
