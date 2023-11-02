@@ -83,7 +83,16 @@ df = df.sort_values(by='ID', ascending=False)
 
 # ultimo_percentage = df['PERCENTAGE'].iloc[0]
 
-ultimo_percentage = df['PERCENTAGE'][df['PERCENTAGE'].gt(0) & ~df['PERCENTAGE'].isna()].iloc[-1]
+df['PERCENTAGE'] = df['PERCENTAGE'].astype(float)  # Asegúrate de que la columna sea de tipo float
+
+# Eliminar filas con NaN
+df_cleaned = df.dropna(subset=['PERCENTAGE'])
+
+if not df_cleaned.empty:
+    ultimo_percentage = df_cleaned['PERCENTAGE'][df_cleaned['PERCENTAGE'] > 0].iloc[-1]
+else:
+    ultimo_percentage = None 
+
 
 
 # penultimo_percentage = df['PERCENTAGE'].iloc[1]
