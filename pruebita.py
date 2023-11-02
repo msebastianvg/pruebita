@@ -27,11 +27,13 @@ def formatear_miles(numero):
 st.title('Reporte BETS - 2023')
 
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
+
+
+
+
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
-
-# Asegurarse de que la columna DATE sea de tipo datetime
 df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
 df = df.dropna(subset=['DATE'])
 
@@ -48,11 +50,18 @@ last_records = df[df['ID'] == df['Max_ID']]
 last_records['Color'] = 'lightgreen'
 last_records.loc[last_records['WL'] == 0, 'Color'] = 'mistyrose'
 
+# Crear un DataFrame con la última fecha y el respectivo valor de PERCENTAGE
+last_pozo_actual = last_records.groupby('DATE')['PERCENTAGE'].last().reset_index()
+
+# Ajustar el formato de la fecha
+last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
+
+# Crear el gráfico
 fig = px.bar(
-    last_records,
+    last_pozo_actual,
     x='DATE',
     y='PERCENTAGE',
-    color='Color',
+    color=last_records['Color'],
     color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
 )
 
@@ -66,13 +75,12 @@ fig.update_layout(
     yaxis_title='Porcentaje de ganancias (%)',
     xaxis=dict(
         type='category',
-        categoryorder='category ascending'  # Ordenar las fechas de manera ascendente
+        categoryorder='category ascending'
     ),
     showlegend=False
 )
 
 st.plotly_chart(fig)
-
 
 
 
