@@ -43,7 +43,7 @@ last_records['Color'] = 'lightgreen'
 last_records.loc[last_records['WL'] == 0, 'Color'] = 'mistyrose'
 last_pozo_actual = last_records.groupby('DATE')['PERCENTAGE'].last().reset_index()
 
-last_pozo_actual = last_pozo_actual.merge(last_wl[['DATE', 'Color']], on='DATE', how='left')
+last_pozo_actual = last_pozo_actual.merge(last_records[['DATE', 'Color']], on='DATE', how='left')
 last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
 
 
