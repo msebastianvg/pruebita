@@ -48,8 +48,8 @@ last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%Y-%m-%d')
 # Crear el gráfico
 fig = px.bar(
     last_pozo_actual,
-    x='DATE',
-    y='PERCENTAGE',
+    x='DATE',  # Asegúrate de que coincide con el nombre de la columna de fecha
+    y='PERCENTAGE',  # Asegúrate de que coincide con el nombre de la columna de porcentaje
     color='Color',
     color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
 )
