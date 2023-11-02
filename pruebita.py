@@ -31,30 +31,21 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 
 
 
-# Cargar los datos desde el archivo Excel
+
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
 df = df.dropna(subset=['DATE'])
-
-# Ordenar por DATE en orden ascendente
 df = df.sort_values(by='DATE', ascending=True)
-
-# Encontrar el valor máximo de 'ID' para cada fecha
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
-
-# Filtrar el DataFrame para incluir solo los registros con el ID máximo
 last_records = df[df['ID'] == df['Max_ID']]
-
-# Aplicar la lógica de colores en función de 'WL'
 last_records['Color'] = 'lightgreen'
 last_records.loc[last_records['WL'] == 0, 'Color'] = 'mistyrose'
-
-# Crear un DataFrame con la última fecha y el respectivo valor de PERCENTAGE
 last_pozo_actual = last_records.groupby('DATE')['PERCENTAGE'].last().reset_index()
 
-# Ajustar el formato de la fecha
+last_pozo_actual = last_pozo_actual.merge(last_wl[['DATE', 'Color']], on='DATE', how='left')
 last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
+
 
 # Crear el gráfico
 fig = px.bar(
@@ -88,16 +79,9 @@ st.plotly_chart(fig)
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
-#df['DATE'] = pd.to_datetime(df['DATE'])
 df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
-
-
 df = df.sort_values(by='DATE')
-
-# Encontrar el valor máximo de 'ID' para cada fecha
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
-
-# Filtrar solo los registros con el ID máximo
 last_wl = df[df['ID'] == df['Max_ID']]
 
 # Filtrar solo el último valor de "PERCENTAGE" para cada día
