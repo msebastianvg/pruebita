@@ -35,6 +35,9 @@ df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 df = df.sort_values(by='DATE')
 
+# Formatear las fechas como 'YYYY-mm-dd'
+df['DATE'] = df['DATE'].dt.strftime('%Y-%m-%d')
+
 # Encontrar el valor máximo de 'ID' para cada fecha
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
 
