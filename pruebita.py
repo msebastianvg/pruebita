@@ -52,7 +52,7 @@ fig = px.bar(
     last_pozo_actual,
     x='DATE',
     y='PERCENTAGE',
-    color=last_records['Color'],
+    color='Color',
     color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
 )
 
