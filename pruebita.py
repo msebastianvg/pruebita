@@ -27,8 +27,6 @@ def formatear_miles(numero):
 st.title('Reporte BETS - 2023')
 
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
-
-
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
@@ -37,28 +35,21 @@ df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
 df = df.dropna(subset=['DATE'])
 
-# Formatear la columna DATE para que coincida con el formato de Python (YYYY-MM-DD)
-df['DATE'] = df['DATE'].dt.strftime('%Y-%m-%d')
-
 # Ordenar por DATE en orden ascendente
 df = df.sort_values(by='DATE', ascending=True)
 
 # Encontrar el valor máximo de 'ID' para cada fecha
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
 
-# Crear un DataFrame con el último valor de "PERCENTAGE" de cada día
-last_pozo_actual = df.groupby('DATE')['PERCENTAGE'].last().reset_index()
+# Filtrar el DataFrame para incluir solo los registros con el ID máximo
+last_records = df[df['ID'] == df['Max_ID']]
 
 # Aplicar la lógica de colores en función de 'WL'
-last_wl = df[df['ID'] == df['Max_ID']]
-last_wl['Color'] = 'lightgreen'
-last_wl.loc[last_wl['WL'] == 0, 'Color'] = 'mistyrose'
-
-# Combinar los DataFrames 'last_pozo_actual' y 'last_wl' para tener los colores
-last_pozo_actual = last_pozo_actual.merge(last_wl[['DATE', 'Color']], on='DATE', how='left')
+last_records['Color'] = 'lightgreen'
+last_records.loc[last_records['WL'] == 0, 'Color'] = 'mistyrose'
 
 fig = px.bar(
-    last_pozo_actual,
+    last_records,
     x='DATE',
     y='PERCENTAGE',
     color='Color',
@@ -81,7 +72,6 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
-
 
 
 
