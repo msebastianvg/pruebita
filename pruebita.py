@@ -37,6 +37,9 @@ df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
 df = df.dropna(subset=['DATE'])
 
+# Formatear la columna DATE para que coincida con el formato de Python (YYYY-MM-DD)
+df['DATE'] = df['DATE'].dt.strftime('%Y-%m-%d')
+
 # Ordenar por DATE en orden ascendente
 df = df.sort_values(by='DATE', ascending=True)
 
@@ -53,7 +56,6 @@ last_wl.loc[last_wl['WL'] == 0, 'Color'] = 'mistyrose'
 
 # Combinar los DataFrames 'last_pozo_actual' y 'last_wl' para tener los colores
 last_pozo_actual = last_pozo_actual.merge(last_wl[['DATE', 'Color']], on='DATE', how='left')
-last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
 
 fig = px.bar(
     last_pozo_actual,
@@ -69,7 +71,7 @@ fig.update_yaxes(
 )
 
 fig.update_layout(
-    xaxis_title='Fecha dfhggfj',
+    xaxis_title='Fecha',
     yaxis_title='Porcentaje de ganancias (%)',
     xaxis=dict(
         type='category',
@@ -79,7 +81,6 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
-
 
 
 
