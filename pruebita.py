@@ -39,14 +39,10 @@ last_records = df[df['ID'] == df['Max_ID']]
 last_records['Color'] = 'lightgreen'
 last_records.loc[last_records['WL'] == 0, 'Color'] = 'mistyrose'
 last_pozo_actual = last_records.groupby('DATE')['PERCENTAGE'].last().reset_index()
-
-# Ajustar el formato de la fecha para orden correcto
 last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%Y-%m-%d')
-
-# Crear el gráfico
 fig = px.bar(
     last_pozo_actual,
-    x='DATE',  # Asegúrate de que coincide con el nombre de la columna de fecha
+    x='DATE', 
     y='PERCENTAGE',  # Asegúrate de que coincide con el nombre de la columna de porcentaje
     color='Color',
     color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
