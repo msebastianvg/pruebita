@@ -71,7 +71,7 @@ fig.update_yaxes(
 )
 
 fig.update_layout(
-    xaxis_title='Fecha',
+    xaxis_title='Fecha ghfg',
     yaxis_title='Porcentaje de ganancias (%)',
     xaxis=dict(
         type='category',
