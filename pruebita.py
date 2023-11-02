@@ -29,17 +29,15 @@ st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
 
-
-
-
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 
-# Convertir la columna 'DATE' al formato de fecha adecuado
+# Asegurarse de que la columna DATE sea de tipo datetime
 df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
+df = df.dropna(subset=['DATE'])
 
-# Ordenar el DataFrame por 'DATE' de manera ascendente
+# Ordenar por DATE en orden ascendente
 df = df.sort_values(by='DATE', ascending=True)
 
 # Encontrar el valor máximo de 'ID' para cada fecha
@@ -71,17 +69,16 @@ fig.update_yaxes(
 )
 
 fig.update_layout(
-    xaxis_title='Fecha ghfg',
+    xaxis_title='Fecha dfhggfj',
     yaxis_title='Porcentaje de ganancias (%)',
     xaxis=dict(
         type='category',
-        categoryorder='total ascending'  # Ordenar las fechas en el orden en que aparecen en los datos
+        categoryorder='category ascending'  # Ordenar las fechas de manera ascendente
     ),
     showlegend=False
 )
 
 st.plotly_chart(fig)
-
 
 
 
