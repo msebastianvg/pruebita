@@ -72,7 +72,8 @@ fig.update_layout(
     yaxis_title='Porcentaje de ganancias (%)',
     xaxis=dict(
         type='category',
-        categoryorder='category ascending'  # Ordenar las fechas de manera ascendente
+        #categoryorder='category ascending'  # Ordenar las fechas de manera ascendente
+        categoryorder='total ascending'
     ),
     showlegend=False
 )
