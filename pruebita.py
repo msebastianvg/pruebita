@@ -34,16 +34,7 @@ file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 
-df[['day', 'month', 'year']] = df['DATE'].str.split('-', expand=True)
-df['day'] = df['day'].astype(int)
-df['month'] = df['month'].astype(int)
-df['year'] = df['year'].astype(int)
-
-df = df.sort_values(by=['year', 'month', 'day'], ascending=True)
-
-df['DATE'] = df[['day', 'month', 'year']].astype(str).agg('-'.join, axis=1)
-
-#df = df.sort_values(by='DATE')
+df = df.sort_values(by='DATE')
 
 # Encontrar el valor máximo de 'ID' para cada fecha
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
