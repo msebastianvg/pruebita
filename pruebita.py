@@ -81,7 +81,14 @@ st.plotly_chart(fig)
 
 df = df.sort_values(by='ID', ascending=False)
 
-ultimo_percentage = df['PERCENTAGE'].iloc[0]
+# ultimo_percentage = df['PERCENTAGE'].iloc[0]
+for i in range(1, 60):
+    valor = df['PERCENTAGE'].iloc[i]
+    if not pd.isna(valor) and valor > 0:
+        ultimo_percentage = valor
+        break
+
+
 # penultimo_percentage = df['PERCENTAGE'].iloc[1]
 
 for i in range(1, 11):
