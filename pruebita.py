@@ -29,44 +29,6 @@ st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
 
-file_path = 'bets-2023-2.xlsx'
-df = pd.read_excel(file_path, sheet_name='bets')
-df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
-df = df.dropna(subset=['DATE'])
-df = df.sort_values(by='DATE')  # Ordenar por fecha en orden ascendente
-df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
-last_records = df[df['ID'] == df['Max_ID']]
-last_records['Color'] = 'lightgreen'
-last_records.loc[last_records['WL'] == 0, 'Color'] = 'mistyrose'
-last_pozo_actual = last_records.groupby('DATE')['PERCENTAGE'].last().reset_index()
-last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%Y-%m-%d')
-fig = px.bar(
-    last_pozo_actual,
-    x='DATE', 
-    y='PERCENTAGE',  # Asegúrate de que coincide con el nombre de la columna de porcentaje
-    color='Color',
-    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
-)
-
-fig.update_yaxes(
-    ticksuffix="%",
-    range=[0, 5]
-)
-
-fig.update_layout(
-    xaxis_title='Fecha',
-    yaxis_title='Porcentaje de ganancias (%)',
-    xaxis=dict(
-        type='category',
-        categoryorder='category ascending'  # Ordenar las fechas correctamente
-    ),
-    showlegend=False
-)
-
-st.plotly_chart(fig)
-
-
-
 
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
