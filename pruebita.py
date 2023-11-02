@@ -33,7 +33,7 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
-df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
+df['DATE'] = pd.to_datetime(df['DATE'], format='%Y-%m-%d', errors='coerce')
 df = df.sort_values(by='DATE')
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
 last_wl = df[df['ID'] == df['Max_ID']]
