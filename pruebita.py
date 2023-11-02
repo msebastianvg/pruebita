@@ -33,7 +33,9 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
-df['DATE'] = pd.to_datetime(df['DATE'])
+#df['DATE'] = pd.to_datetime(df['DATE'])
+df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
+
 
 df = df.sort_values(by='DATE')
 
@@ -72,7 +74,7 @@ fig.update_layout(
     yaxis_title='Porcentaje de ganancias (%)',
     xaxis=dict(
         type='category',
-        categoryorder='category ascending'  # Ordenar por año, mes, día
+        categoryorder='total ascending'  # Ordenar por año, mes, día
     ),
     showlegend=False
 )
