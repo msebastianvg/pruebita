@@ -33,6 +33,9 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
+
+
+df['DATE'] = pd.to_datetime(df['DATE'], format='%Y-%m-%d', errors='coerce')
 df = df.sort_values(by='DATE')
 
 # Formatear las fechas como 'YYYY-mm-dd'
