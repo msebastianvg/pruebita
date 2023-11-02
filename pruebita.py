@@ -33,7 +33,12 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
-df = df.sort_values(by='DATE')
+
+df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
+df = df.dropna(subset=['DATE'])
+df = df.sort_values(by='DATE', ascending=True)
+
+#df = df.sort_values(by='DATE')
 
 # Encontrar el valor máximo de 'ID' para cada fecha
 df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
