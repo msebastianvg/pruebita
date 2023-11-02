@@ -34,7 +34,7 @@ file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'])
 
-df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce')
+df['DATE'] = pd.to_datetime(df['DATE'], format='%d-%m-%Y', errors='coerce', dayfirst=True)
 df = df.dropna(subset=['DATE'])
 df = df.sort_values(by='DATE', ascending=True)
 
