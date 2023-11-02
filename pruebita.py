@@ -56,7 +56,7 @@ last_pozo_actual['DATE'] = last_pozo_actual['DATE'].dt.strftime('%d-%m-%Y')
 
 fig = px.bar(
     last_pozo_actual,
-    x='DATE',
+    x='DATE',  # Especifica que DATE es el eje X
     y='PERCENTAGE',
     color='Color',
     color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
@@ -72,8 +72,7 @@ fig.update_layout(
     yaxis_title='Porcentaje de ganancias (%)',
     xaxis=dict(
         type='category',
-        #categoryorder='category ascending'  # Ordenar las fechas de manera ascendente
-        categoryorder='total ascending'
+        categoryorder='total ascending'  # Ordenar por año, mes, día
     ),
     showlegend=False
 )
