@@ -30,6 +30,44 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 
 
 
+
+
+
+# Cargar los datos desde el archivo Excel (asegúrate de que tus datos tengan las columnas 'WL' y 'DATE')
+file_path = 'bets-2023-2.xlsx'
+df = pd.read_excel(file_path)
+
+# Asegúrate de que 'DATE' sea de tipo datetime
+df['DATE'] = pd.to_datetime(df['DATE'])
+
+# Agregar una columna con el día de la semana (0: lunes, 1: martes, ..., 6: domingo)
+df['Day_of_Week'] = df['DATE'].dt.dayofweek
+
+# Calcular el porcentaje de apuestas ganadas para cada día de la semana
+day_stats = df.groupby('Day_of_Week')['WL'].mean() * 100  # Multiplicar por 100 para obtener un porcentaje
+
+# Crear un DataFrame para el gráfico
+radar_data = pd.DataFrame({'Day_of_Week': day_stats.index, 'Win_Percentage': day_stats.values})
+
+# Nombres de los días de la semana
+day_names = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+
+# Asignar nombres de días a los valores del eje X
+radar_data['Day_of_Week'] = radar_data['Day_of_Week'].map({i: day for i, day in enumerate(day_names)})
+
+# Crear el gráfico de radar interactivo
+fig = px.line_polar(radar_data, r='Win_Percentage', theta='Day_of_Week', line_close=True)
+
+st.title('Porcentaje de Apuestas Ganadas por Día de la Semana')
+st.plotly_chart(fig)
+
+
+
+
+
+
+
+
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
