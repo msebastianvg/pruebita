@@ -58,12 +58,14 @@ radar_data['Day_of_Week'] = radar_data['Day_of_Week'].map({i: day for i, day in 
 # Crear el gráfico de radar interactivo
 fig = px.line_polar(radar_data, r='Win_Percentage', theta='Day_of_Week', line_close=True)
 
-# Cambiar el color de las líneas a 'lightgreen'
-fig.update_traces(line=dict(color='lightgreen'))
+# Personalizar el color de relleno y el borde
+fig.update_traces(
+    line=dict(color='green'),
+    fill='toself',  # Relleno del área bajo la curva
+    fillcolor='lightgreen'  # Color de relleno lightgreen
+)
 
-st.title('Porcentaje de Apuestas Ganadas por Día de la Semana')
 st.plotly_chart(fig)
-
 
 
 
