@@ -239,7 +239,6 @@ st.plotly_chart(fig)
 
 
 
-st.subheader('Monto personal')
 # Cargar los datos desde el archivo Excel (asegúrate de que tus datos tengan las columnas 'WL' y 'DATE')
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path)
