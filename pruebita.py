@@ -62,7 +62,7 @@ fig = px.line_polar(radar_data, r='Win_Percentage', theta='Day_of_Week', line_cl
 fig.update_traces(
     line=dict(color='green'),
     fill='toself',  # Relleno del área bajo la curva
-    fillcolor='lightgreen'  # Color de relleno lightgreen
+    fillcolor='rgba(144, 238, 144, 0.5)'  # Color de relleno lightgreen
 )
 
 st.plotly_chart(fig)
