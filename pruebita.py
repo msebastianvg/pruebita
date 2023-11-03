@@ -36,6 +36,7 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 # Cargar los datos desde el archivo Excel (asegúrate de que tus datos tengan las columnas 'WL' y 'DATE')
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path)
+
 # Asegúrate de que 'DATE' sea de tipo datetime
 df['DATE'] = pd.to_datetime(df['DATE'])
 
@@ -62,7 +63,6 @@ fig.update_traces(line=dict(color='lightgreen'))
 
 st.title('Porcentaje de Apuestas Ganadas por Día de la Semana')
 st.plotly_chart(fig)
-
 
 
 
