@@ -202,41 +202,6 @@ st.plotly_chart(fig)
 
 
 
-# Cargar los datos desde el archivo Excel
-file_path = 'bets-2023-2.xlsx'
-sheet_name = 'bets'
-df = pd.read_excel(file_path, sheet_name=sheet_name)
-
-# Agrupar por 'CATEGORY' y 'WL' y contar la cantidad de registros
-grouped = df.groupby(['TEAM', 'WL']).size().unstack(fill_value=0)
-
-# Reiniciar el índice para tener 'CATEGORY' como una columna
-grouped = grouped.reset_index()
-
-# Cambiar los nombres de las columnas
-grouped = grouped.rename(columns={0: 'Apuestas perdidas', 1: 'Apuestas ganadas'})
-
-# Crear un gráfico interactivo en Streamlit
-fig = px.bar(
-    grouped,
-    x='TEAM',
-    y=['Apuestas perdidas', 'Apuestas ganadas'],  # Corregir los nombres de las columnas
-    barmode='group',
-    # title='Cantidad de Registros por Categoría y WL',
-    color_discrete_map={"Apuestas ganadas": "lightgreen", "Apuestas perdidas": "mistyrose"},  # Corregir la paleta de colores
-)
-fig.update_layout(
-    xaxis_title='Equipo',
-    yaxis_title='Cantidad de apuestas',
-    showlegend=True,
-)
-
-fig.update_xaxes(categoryorder='total ascending')
-
-st.plotly_chart(fig)
-
-
-
 
 
 # Cargar los datos desde el archivo Excel (asegúrate de que tus datos tengan las columnas 'WL' y 'DATE')
