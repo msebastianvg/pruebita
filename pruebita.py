@@ -98,7 +98,7 @@ df_cleaned = df.dropna(subset=['PERCENTAGE'])
 
 if not df_cleaned.empty:
     df_cleaned = df_cleaned.iloc[::-1] 
-    ultimo_percentage = df_cleaned['PERCENTAGE'][df_cleaned['PERCENTAGE'] > 0].iloc[-1]
+    ultimo_percentage = df_cleaned['PERCENTAGE'][df_cleaned['PERCENTAGE'] > -10].iloc[-1]
 else:
     ultimo_percentage = None 
 
