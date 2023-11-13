@@ -281,7 +281,7 @@ st.subheader('Monto personal')
 input_text = st.text_input("Ingresa tu palabra ultra secreta y presiona Enter:")
 
 df = pd.read_excel(file_path, sheet_name='resumen')
-filtro_tipo_2 = df[df['TIPO'] == 3]
+filtro_tipo_2 = df[df['TIPO'] == 4]
 if not filtro_tipo_2.empty:
     valor_v = filtro_tipo_2.iloc[0]['V']
     valor_c = filtro_tipo_2.iloc[0]['C']
@@ -302,6 +302,9 @@ elif input_text.lower() == 'morty':
 elif input_text.lower() == 'duskelokura':
     valor_m_m = f"${valor_m:,.0f} CLP"
     st.write(f"Tu monto a la fecha es de: {valor_m_m.replace(',', '.')}")  
+elif input_text.lower() == 'kombucha':
+    valor_cc_cc = f"${valor_cc:,.0f} CLP"
+    st.write(f"Tu monto a la fecha es de: {valor_cc_cc.replace(',', '.')}")  
 else:
     resultado = 0
 
