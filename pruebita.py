@@ -65,7 +65,7 @@ fig = px.bar(
 
 fig.update_yaxes(
     ticksuffix="%",
-    range=[0, 5]
+    range=[-2,5, 5]
 )
 
 fig.update_layout(
