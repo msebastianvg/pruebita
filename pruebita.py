@@ -135,13 +135,13 @@ label1 = "Porcentaje de ganancia actual"
 value1 = f"{ultimo_percentage/100:.2%}"
 delta1 = f"{(ultimo_percentage - penultimo_percentage)/100:.2%}" 
 
-label2 = "Racha de victorias"
-value2 = apuestas_ganadas_desde_ultima_perdida
-delta2 = cantidad_apuestas_ganadas_ultimo_dia
+#label2 = "Racha de victorias"
+#value2 = apuestas_ganadas_desde_ultima_perdida
+#delta2 = cantidad_apuestas_ganadas_ultimo_dia
 
 # Crear el panel métrico
 col1.metric(label=label1, value=value1, delta=delta1)
-col2.metric(label=label2, value=value2, delta=delta2)
+#col2.metric(label=label2, value=value2, delta=delta2)
 
 
 
