@@ -109,7 +109,7 @@ else:
 for i in range(1, 11):
     valor = df['PERCENTAGE'].iloc[i]
     
-    if not pd.isna(valor) and valor > 0:
+    if not pd.isna(valor) and valor > -10:
         penultimo_percentage = valor
         break
 
