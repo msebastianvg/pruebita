@@ -98,6 +98,7 @@ last_wl['PREV_PERCENTAGE'] = last_wl['PREV_PERCENTAGE'].fillna(method='ffill')
 # Aplicar la lógica de colores basada en la comparación de porcentajes
 last_wl['Color'] = 'lightgreen'
 last_wl.loc[last_wl['PERCENTAGE'] < last_wl['PREV_PERCENTAGE'], 'Color'] = 'mistyrose'
+last_wl.loc[last_wl['PERCENTAGE'] < 0, 'Color'] = 'darkred'  # Nuevo color para valores menores a cero
 
 # Seleccionar las columnas necesarias para el gráfico
 last_pozo_actual = last_wl[['DATE', 'PERCENTAGE', 'Color']]
