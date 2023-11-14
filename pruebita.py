@@ -83,6 +83,53 @@ st.plotly_chart(fig)
 
 
 
+# Cargar los datos desde el archivo Excel
+file_path = 'bets-2023-2.xlsx'
+df = pd.read_excel(file_path, sheet_name='bets')
+df['DATE'] = pd.to_datetime(df['DATE'], format='%Y-%m-%d', errors='coerce')
+df = df.sort_values(by='DATE')
+df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
+last_wl = df[df['ID'] == df['Max_ID']]
+
+# Crear una columna con el porcentaje del día anterior usando shift
+last_wl['PREV_PERCENTAGE'] = last_wl['PERCENTAGE'].shift(1)
+last_wl['PREV_PERCENTAGE'] = last_wl['PREV_PERCENTAGE'].fillna(method='ffill')
+
+# Aplicar la lógica de colores basada en la comparación de porcentajes
+last_wl['Color'] = 'lightgreen'
+last_wl.loc[last_wl['PERCENTAGE'] < last_wl['PREV_PERCENTAGE'], 'Color'] = 'mistyrose'
+
+# Seleccionar las columnas necesarias para el gráfico
+last_pozo_actual = last_wl[['DATE', 'PERCENTAGE', 'Color']]
+
+# Resto del código para crear el gráfico...
+fig = px.bar(
+    last_pozo_actual,
+    x='DATE',
+    y='PERCENTAGE',
+    color='Color',
+    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
+)
+
+fig.update_yaxes(
+    ticksuffix="%",
+    range=[-2.5, 5]
+)
+
+fig.update_layout(
+    xaxis_title='Fecha',
+    yaxis_title='Porcentaje de ganancias (%)',
+    xaxis=dict(
+        type='category',
+        categoryorder='category ascending'
+    ),
+    showlegend=False
+)
+
+st.plotly_chart(fig)
+
+
+
 
 
 
