@@ -109,7 +109,7 @@ fig = px.bar(
     x='DATE',
     y='PERCENTAGE',
     color='Color',
-    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
+    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose', 'salmon': 'salmon'},
 )
 
 fig.update_yaxes(
