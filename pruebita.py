@@ -29,7 +29,6 @@ st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
 
-
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path)
@@ -42,7 +41,7 @@ df = df.sort_values(by='NRO')
 
 # Agregar una nueva columna para determinar el color
 df['Color'] = 'lightgreen'
-df.loc[df['PERCENTAGE'] <= df['PERCENTAGE'].shift(), 'Color'] = 'mistyrose'
+df['Color'].where(df['PERCENTAGE'] <= df['PERCENTAGE'].shift(), 'mistyrose', inplace=True)
 
 # Crear el gráfico lineal
 fig_lineal = px.line(
@@ -50,8 +49,7 @@ fig_lineal = px.line(
     x='NRO',
     y='PERCENTAGE',
     line_shape="linear",
-    line_dash='solid',  # Puedes ajustar el estilo de la línea si lo deseas
-    color='Color',  # Utilizar la nueva columna 'Color' para determinar los colores
+    color='Color',
     labels={'NRO': 'Número', 'PERCENTAGE': 'Porcentaje de ganancias (%)'},
     color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose'},
 )
@@ -59,7 +57,6 @@ fig_lineal = px.line(
 # Actualizar el diseño del gráfico lineal
 fig_lineal.update_yaxes(
     ticksuffix="%",
-    # Puedes ajustar el rango del eje Y según tus necesidades
     range=[-2.5, 5]
 )
 
