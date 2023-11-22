@@ -34,41 +34,23 @@ file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'], format='%Y-%m-%d', errors='coerce')
 df = df.sort_values(by='DATE')
-df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
-last_wl = df[df['ID'] == df['Max_ID']]
 
-# Crear una columna con el porcentaje del día anterior usando shift
-last_wl['PREV_PERCENTAGE'] = last_wl['PERCENTAGE'].shift(1)
-last_wl['PREV_PERCENTAGE'] = last_wl['PREV_PERCENTAGE'].fillna(method='ffill')
+# Crear una nueva columna con valores enteros para el eje X
+df['Integer_X'] = range(1, len(df) + 1)
 
-# Aplicar la lógica de colores basada en la comparación de porcentajes
-last_wl['Color'] = 'lightgreen'
-last_wl.loc[last_wl['PERCENTAGE'] < last_wl['PREV_PERCENTAGE'], 'Color'] = 'mistyrose'
-last_wl.loc[last_wl['PERCENTAGE'] < 0, 'Color'] = 'salmon'
-
-# Seleccionar las columnas necesarias para el gráfico lineal
-last_pozo_actual = last_wl[['ID', 'PERCENTAGE', 'Color']]
-
-# Crear el gráfico lineal
+# Crear el gráfico lineal para la columna 'PERCENTAGE'
 fig_lineal = px.line(
-    last_pozo_actual,
-    x='ID',  # Cambiado de 'DATE' a 'ID'
+    df,
+    x='Integer_X',
     y='PERCENTAGE',
-    line_shape="linear",  # Puedes cambiar la forma de la línea si lo deseas
-    color='Color',
-    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose', 'salmon': 'salmon'},
+    line_shape="linear",
+    labels={'Integer_X': 'Valor Entero', 'PERCENTAGE': 'Porcentaje de ganancias (%)'},
 )
 
 # Actualizar el diseño del gráfico lineal
 fig_lineal.update_yaxes(
     ticksuffix="%",
     range=[-2.5, 5]
-)
-
-fig_lineal.update_layout(
-    xaxis_title='ID',
-    yaxis_title='Porcentaje de ganancias (%)',
-    showlegend=False
 )
 
 # Mostrar el gráfico lineal
