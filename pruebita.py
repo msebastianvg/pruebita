@@ -35,6 +35,9 @@ df = pd.read_excel(file_path, sheet_name='bets')
 df['DATE'] = pd.to_datetime(df['DATE'], format='%Y-%m-%d', errors='coerce')
 df = df.sort_values(by='DATE')
 
+# Eliminar registros donde 'PERCENTAGE' es vacío
+df = df.dropna(subset=['PERCENTAGE'])
+
 # Crear una nueva columna con valores enteros para el eje X
 df['Integer_X'] = range(1, len(df) + 1)
 
@@ -55,7 +58,6 @@ fig_lineal.update_yaxes(
 
 # Mostrar el gráfico lineal
 st.plotly_chart(fig_lineal)
-
 
 
 
