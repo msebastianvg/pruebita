@@ -28,9 +28,13 @@ st.title('Reporte BETS - 2023')
 
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
+
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path)
+
+# Eliminar filas donde 'PERCENTAGE' o 'NRO' están vacíos
+df = df.dropna(subset=['PERCENTAGE', 'NRO'])
 
 # Ordenar el DataFrame por la columna 'NRO'
 df = df.sort_values(by='NRO')
@@ -53,7 +57,6 @@ fig_lineal.update_yaxes(
 
 # Mostrar el gráfico lineal
 st.plotly_chart(fig_lineal)
-
 
 
 
