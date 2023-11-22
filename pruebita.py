@@ -29,6 +29,8 @@ st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
 
+
+
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
@@ -38,12 +40,12 @@ df = df.sort_values(by='DATE')
 # Eliminar registros donde 'PERCENTAGE' es vacío
 df = df.dropna(subset=['PERCENTAGE'])
 
-# Crear una nueva columna con valores enteros para el eje X
+# Crear una nueva columna con valores enteros para el eje X, eliminando valores vacíos
 df['Integer_X'] = range(1, len(df) + 1)
 
 # Crear el gráfico lineal para la columna 'PERCENTAGE'
 fig_lineal = px.line(
-    df,
+    df.dropna(subset=['Integer_X']),  # Eliminar valores vacíos en 'Integer_X'
     x='Integer_X',
     y='PERCENTAGE',
     line_shape="linear",
@@ -58,7 +60,6 @@ fig_lineal.update_yaxes(
 
 # Mostrar el gráfico lineal
 st.plotly_chart(fig_lineal)
-
 
 
 
