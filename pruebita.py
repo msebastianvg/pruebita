@@ -29,6 +29,32 @@ st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
 
+
+# Cargar los datos desde el archivo Excel
+file_path = 'bets-2023-2.xlsx'
+df = pd.read_excel(file_path)
+
+# Crear el gráfico lineal
+fig_lineal = px.line(
+    df,
+    x='NRO',
+    y='PERCENTAGE',
+    line_shape="linear",
+    labels={'NRO': 'Número', 'PERCENTAGE': 'Porcentaje de ganancias (%)'},
+)
+
+# Actualizar el diseño del gráfico lineal
+fig_lineal.update_yaxes(
+    ticksuffix="%",
+    # Puedes ajustar el rango del eje Y según tus necesidades
+    range=[-2.5, 5]
+)
+
+# Mostrar el gráfico lineal
+st.plotly_chart(fig_lineal)
+
+
+
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
