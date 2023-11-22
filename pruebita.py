@@ -30,29 +30,6 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 
 
 
-# Cargar los datos desde el archivo Excel
-file_path = 'bets-2023-2.xlsx'
-df = pd.read_excel(file_path, sheet_name='bets')
-df = df.dropna(subset=['PERCENTAGE'])
-
-# Crear el gráfico lineal para la columna 'PERCENTAGE'
-fig_lineal = px.line(
-    df,
-    x=df.index + 1,  # Utilizar el índice del DataFrame + 1 como eje X (valor entero)
-    y='PERCENTAGE',
-    line_shape="linear",
-    labels={'x': 'Valor Entero', 'PERCENTAGE': 'Porcentaje de ganancias (%)'},
-)
-
-# Actualizar el diseño del gráfico lineal
-fig_lineal.update_yaxes(
-    ticksuffix="%",
-    range=[-2.5, 5]
-)
-
-# Mostrar el gráfico lineal
-st.plotly_chart(fig_lineal)
-
 
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
