@@ -29,11 +29,9 @@ st.title('Reporte BETS - 2023')
 
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre. ')
 
-uploaded_image = st.file_uploader("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH3LUBm8FpFHvwZk1P-LT4EzjQvc9-CbOsJQ&usqp=CAU", type=["jpg", "jpeg", "png"])
 
-# Mostrar la imagen debajo del título si se ha subido
-if uploaded_image is not None:
-    st.image(uploaded_image, caption='Imagen subida', use_column_width=True)
+image_path = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH3LUBm8FpFHvwZk1P-LT4EzjQvc9-CbOsJQ&usqp=CAU" 
+st.image(image_path, caption='T1', use_column_width=True)
 
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
