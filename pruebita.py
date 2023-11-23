@@ -32,35 +32,51 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
-df = pd.read_excel(file_path)
+df = pd.read_excel(file_path, sheet_name='bets')
+df['DATE'] = pd.to_datetime(df['DATE'], format='%Y-%m-%d', errors='coerce')
+df = df.sort_values(by='DATE')
+df['Max_ID'] = df.groupby('DATE')['ID'].transform('max')
+last_wl = df[df['ID'] == df['Max_ID']]
 
-# Eliminar filas donde 'PERCENTAGE' o 'NRO' están vacíos
-df = df.dropna(subset=['PERCENTAGE', 'NRO'])
+# Crear una columna con el porcentaje del día anterior usando shift
+last_wl['PREV_PERCENTAGE'] = last_wl['PERCENTAGE'].shift(1)
+last_wl['PREV_PERCENTAGE'] = last_wl['PREV_PERCENTAGE'].fillna(method='ffill')
 
-# Ordenar el DataFrame por la columna 'NRO'
-df = df.sort_values(by='NRO')
+# Aplicar la lógica de colores basada en la comparación de porcentajes
+last_wl['Color'] = 'lightgreen'
+last_wl.loc[last_wl['PERCENTAGE'] < last_wl['PREV_PERCENTAGE'], 'Color'] = 'mistyrose'
+last_wl.loc[last_wl['PERCENTAGE'] < 0, 'Color'] = 'salmon'  # Nuevo color para valores menores a cero
 
-# Convertir la columna 'WL' a tipo numérico
-df['WL'] = pd.to_numeric(df['WL'], errors='coerce')
+# Seleccionar las columnas necesarias para el gráfico
+last_pozo_actual = last_wl[['DATE', 'PERCENTAGE', 'Color']]
 
-# Crear el gráfico lineal con condición de color
-fig_lineal = px.line(
-    df,
-    x='NRO',
+# Cambiar de gráfico de barras a gráfico lineal
+fig = px.line(
+    last_pozo_actual,
+    x='DATE',
     y='PERCENTAGE',
-    line_shape="linear",
-    color=df['WL'].map({1: 'lightgreen', 0: 'mistyrose'}),
-    labels={'NRO': 'Número', 'PERCENTAGE': 'Porcentaje de ganancias (%)'},
+    color='Color',
+    line_shape='linear',  # Puedes ajustar la forma de la línea según tus preferencias
+    labels={'PERCENTAGE': 'Porcentaje de ganancias (%)'},
+    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose', 'salmon': 'salmon'},
 )
 
-# Actualizar el diseño del gráfico lineal
-fig_lineal.update_yaxes(
+fig.update_yaxes(
     ticksuffix="%",
     range=[-2.5, 5]
 )
 
-# Mostrar el gráfico lineal
-st.plotly_chart(fig_lineal)
+fig.update_layout(
+    xaxis_title='Fecha',
+    yaxis_title='Porcentaje de ganancias (%)',
+    xaxis=dict(
+        type='category',
+        categoryorder='category ascending'
+    ),
+    showlegend=False
+)
+
+st.plotly_chart(fig)
 
 
 
