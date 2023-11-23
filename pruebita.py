@@ -28,6 +28,9 @@ st.title('Reporte BETS - 2023')
 
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
 
+
+
+
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path, sheet_name='bets')
@@ -40,23 +43,17 @@ last_wl = df[df['ID'] == df['Max_ID']]
 last_wl['PREV_PERCENTAGE'] = last_wl['PERCENTAGE'].shift(1)
 last_wl['PREV_PERCENTAGE'] = last_wl['PREV_PERCENTAGE'].fillna(method='ffill')
 
-# Aplicar la lógica de colores basada en la comparación de porcentajes
-last_wl['Color'] = 'lightgreen'
-last_wl.loc[last_wl['PERCENTAGE'] < last_wl['PREV_PERCENTAGE'], 'Color'] = 'mistyrose'
-last_wl.loc[last_wl['PERCENTAGE'] < 0, 'Color'] = 'salmon'  # Nuevo color para valores menores a cero
-
 # Seleccionar las columnas necesarias para el gráfico
-last_pozo_actual = last_wl[['DATE', 'PERCENTAGE', 'Color']]
+last_pozo_actual = last_wl[['DATE', 'PERCENTAGE']]
 
-# Cambiar de gráfico de barras a gráfico lineal
+# Crear el gráfico lineal con colores condicionales
 fig = px.line(
     last_pozo_actual,
     x='DATE',
     y='PERCENTAGE',
-    color='Color',
-    line_shape='linear',  # Puedes ajustar la forma de la línea según tus preferencias
-    labels={'PERCENTAGE': 'Porcentaje de ganancias (%)'},
-    color_discrete_map={'lightgreen': 'lightgreen', 'mistyrose': 'mistyrose', 'salmon': 'salmon'},
+    color=last_wl['PREV_PERCENTAGE'] < last_wl['PERCENTAGE'],
+    color_discrete_map={False: 'lightgreen', True: 'mistyrose'},
+    labels={'PERCENTAGE': 'Porcentaje de ganancias (%)'}
 )
 
 fig.update_yaxes(
@@ -67,14 +64,11 @@ fig.update_yaxes(
 fig.update_layout(
     xaxis_title='Fecha',
     yaxis_title='Porcentaje de ganancias (%)',
-    xaxis=dict(
-        type='category',
-        categoryorder='category ascending'
-    ),
     showlegend=False
 )
 
 st.plotly_chart(fig)
+
 
 
 
