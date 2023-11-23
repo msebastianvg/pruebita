@@ -26,9 +26,7 @@ def formatear_miles(numero):
 
 st.title('Reporte BETS - 2023')
 
-st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre.')
-
-
+st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre. ')
 
 
 
