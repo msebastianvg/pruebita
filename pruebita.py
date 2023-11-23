@@ -27,7 +27,7 @@ def formatear_miles(numero):
 
 st.title('Reporte BETS - 2023')
 
-st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre. ')
+st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre de 2023.')
 
 
 image_path = "https://staticg.sportskeeda.com/editor/2023/11/7815c-17004017588132-1920.jpg?w=840" 
