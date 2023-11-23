@@ -30,7 +30,7 @@ st.title('Reporte BETS - 2023')
 st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Diciembre. ')
 
 
-image_path = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH3LUBm8FpFHvwZk1P-LT4EzjQvc9-CbOsJQ&usqp=CAU" 
+image_path = "https://staticg.sportskeeda.com/editor/2023/11/7815c-17004017588132-1920.jpg?w=840" 
 st.image(image_path, caption='T1', use_column_width=True)
 
 
