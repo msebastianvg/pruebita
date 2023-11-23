@@ -53,7 +53,8 @@ fig = px.line(
     y='PERCENTAGE',
     color=last_wl['PREV_PERCENTAGE'] < last_wl['PERCENTAGE'],
     color_discrete_map={False: 'lightgreen', True: 'mistyrose'},
-    labels={'PERCENTAGE': 'Porcentaje de ganancias (%)'}
+    labels={'PERCENTAGE': 'Porcentaje de ganancias (%)'},
+    line_shape='linear',  # Garantiza que todos los puntos estén conectados
 )
 
 fig.update_yaxes(
@@ -68,7 +69,6 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
-
 
 
 
