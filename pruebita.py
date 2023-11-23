@@ -30,7 +30,6 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 
 
 
-
 # Cargar los datos desde el archivo Excel
 file_path = 'bets-2023-2.xlsx'
 df = pd.read_excel(file_path)
@@ -40,6 +39,9 @@ df = df.dropna(subset=['PERCENTAGE', 'NRO'])
 
 # Ordenar el DataFrame por la columna 'NRO'
 df = df.sort_values(by='NRO')
+
+# Convertir la columna 'WL' a tipo numérico
+df['WL'] = pd.to_numeric(df['WL'], errors='coerce')
 
 # Crear el gráfico lineal con condición de color
 fig_lineal = px.line(
