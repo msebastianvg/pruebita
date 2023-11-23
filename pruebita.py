@@ -31,7 +31,7 @@ st.subheader('Comienza el último periodo del año: 09 de Octubre hasta 31 de Di
 
 
 image_path = "https://staticg.sportskeeda.com/editor/2023/11/7815c-17004017588132-1920.jpg?w=840" 
-st.image(image_path, caption='T1', use_column_width=True)
+st.image(image_path, caption='', use_column_width=True)
 
 
 # Cargar los datos desde el archivo Excel
