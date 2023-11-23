@@ -23,6 +23,7 @@ def load_data(nrows):
 def formatear_miles(numero):
     return '{:,.0f}'.format(numero).replace(',', '.')
 
+st.sidebar.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH3LUBm8FpFHvwZk1P-LT4EzjQvc9-CbOsJQ&usqp=CAU', width=100)
 
 st.title('Reporte BETS - 2023')
 
